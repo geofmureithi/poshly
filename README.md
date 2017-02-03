@@ -1,2 +1,2 @@
-# -poshly
+# poshly
 Modern point of sale system
