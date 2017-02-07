@@ -4,7 +4,7 @@
   "description": "Modern point of sale system",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "watch": "nodemon express.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,12 @@
   },
   "homepage": "https://github.com/josephgutierrez/poshly#readme",
   "dependencies": {
+    "body-parser": "^1.16.0",
     "express": "^4.14.1",
-    "mongodb": "^2.2.22"
+    "mongodb": "^2.2.22",
+    "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
