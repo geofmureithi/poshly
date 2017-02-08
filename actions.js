@@ -4,6 +4,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'INVENTORY':
       return Object.assign({}, state, {
+        console.log("This is inventory")
         state.inventoryButton: false,
         state.createItem: true
       })
@@ -30,6 +31,6 @@ const initialState = {
   submitCreate: false
 }
 
-const reducer = createStore(reducer)
+const store = createStore(reducer, initialState)
 
-const store = store.getState()
+store.subscribe(dispatch({type: 'INVENTORY'}))
