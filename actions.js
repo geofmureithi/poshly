@@ -18,7 +18,8 @@ const reducer = (state = initialState, action) => {
     case 'SUBMIT_CREATE':
       return Object.assign({}, state, {
         state.submitCreate: false,
-        state.inventoryButton: true
+        state.inventoryButton: true,
+        state.inventory.concat(action.inventory)
       })
     default:
       return state
@@ -28,7 +29,8 @@ const reducer = (state = initialState, action) => {
 const initialState = {
   inventoryButton: true,
   createItem: false,
-  submitCreate: false
+  submitCreate: false,
+  inventory: []
 }
 
 const store = createStore(reducer, initialState)

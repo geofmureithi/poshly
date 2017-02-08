@@ -31,3 +31,9 @@ body {
   font-size: 35px;
   background-color: white;
 }
+.inventory-properties {
+  display: inline-block;
+}
+/*.submit-item {
+  font-family: 'Raleway', sans-serif;
+}*/
