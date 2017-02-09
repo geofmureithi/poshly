@@ -42,8 +42,10 @@ body {
   padding-top: 20px;
   padding-bottom: 10px;
 }
-.submit-item {
-  margin-top: 20px;
+#submit-item {
+  font-family: 'Raleway', sans-serif;
+  font-weight: bold;
+  margin-top: 40px;
 }
 /*.submit-item {
   font-family: 'Raleway', sans-serif;

@@ -1,6 +1,6 @@
 const React = require('react')
 const {render} = require('react-dom')
-const {createStore} = require('redux')
+const {createStore, applyMiddleware} = require('redux')
 const thunk = require('redux-thunk').default
 
 const initialState = {
@@ -63,7 +63,6 @@ const CreateItem = () => {
     !submitItem
     ? null
     : <div className="add-inventory">
-
         <div className="inventory-properties">
           <div className="inventory-property">Item SKU</div>
           <div className="ui input inventory-value">
@@ -82,8 +81,7 @@ const CreateItem = () => {
             <input type="text" className="inventory-value"/>
           </div>
         </div>
-
-        <button id="submit-item" className="submit-item massive ui button" onClick={handleClick}>Submit Item</button>
+        <button id="submit-item" className="submit-item massive ui positive button" onClick={handleClick}>Submit Item</button>
       </div>
   )
 }
