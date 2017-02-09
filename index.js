@@ -1,6 +1,7 @@
 const React = require('react')
 const {render} = require('react-dom')
 const {createStore} = require('redux')
+const thunk = require('redux-thunk').default
 
 const initialState = {
   inventoryButton: true,
@@ -33,7 +34,7 @@ const reducer = (state = initialState, action) => {
   }
 }
 
-const store = createStore(reducer, initialState)
+const store = createStore(reducer, initialState, applyMiddleware(thunk))
 
 const HomePage = () => {
   const {inventoryButton} = store.getState()
@@ -62,23 +63,27 @@ const CreateItem = () => {
     !submitItem
     ? null
     : <div className="add-inventory">
+
         <div className="inventory-properties">
           <div className="inventory-property">Item SKU</div>
+          <div className="ui input inventory-value">
+            <input type="text" className="inventory-value"/>
+          </div>
+        </div>
+        <div className="inventory-properties">
           <div className="inventory-property">Description</div>
+          <div className="ui input inventory-value">
+            <input type="text" className="inventory-value"/>
+          </div>
+        </div>
+        <div className="inventory-properties">
           <div className="inventory-property">Price</div>
-        </div>
-        <div className="inventory-values">
-          <div className="ui input">
-            <input type="text" className="inventory-value"/>
-          </div>
-          <div className="ui input">
-            <input type="text" className="inventory-value"/>
-          </div>
-          <div className="ui input">
+          <div className="ui input inventory-value">
             <input type="text" className="inventory-value"/>
           </div>
         </div>
-        <button className="submit-item massive ui button" onClick={handleClick}>Submit Item</button>
+
+        <button id="submit-item" className="submit-item massive ui button" onClick={handleClick}>Submit Item</button>
       </div>
   )
 }
@@ -90,8 +95,8 @@ const redraw = () => {
       <div className="main-buttons">
         <HomePage/>
         <Inventory/>
-        <CreateItem/>
       </div>
+      <CreateItem/>
     </div>,
     document.getElementById('root')
   )

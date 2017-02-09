@@ -31,8 +31,19 @@ body {
   font-size: 35px;
   background-color: white;
 }
-.inventory-properties {
-  display: inline-block;
+.add-inventory {
+  text-align: center;
+}
+.inventory-property,
+.inventory-value {
+  font-size: 30px;
+}
+.inventory-property {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+.submit-item {
+  margin-top: 20px;
 }
 /*.submit-item {
   font-family: 'Raleway', sans-serif;
