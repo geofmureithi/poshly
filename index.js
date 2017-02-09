@@ -1,38 +1,91 @@
 const React = require('react')
 const {render} = require('react-dom')
-const {createStore, applyMiddleware} = require('redux')
+const {createStore, applyMiddleware, combineReducers} = require('redux')
 const thunk = require('redux-thunk').default
 
 const initialState = {
   inventoryButton: true,
   createItem: false,
   submitItem: false,
-  inventory: []
-}
-
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'INVENTORY':
-    return Object.assign({}, state, {
-      inventoryButton: false,
-      createItem: true
-    })
-    break
-    case 'CREATE_ITEM':
-    return Object.assign({}, state, {
-      createItem: false,
-      submitItem: true
-    })
-    break
-    case 'SUBMIT_ITEM':
-    return Object.assign({}, state, {
-      submitItem: false,
-      inventoryButton: true
-    })
-    default:
-    return state
+  // inventory: [],
+  itemForm: {
+    sku: '',
+    description: '',
+    price: ''
   }
 }
+
+const itemForm = (state = {}, action) => {
+  switch (action.type) {
+    case 'FORM_UPDATED':
+      return Object.assign({}, state, {
+        [action.field]: action.value
+    })
+    case 'SUBMIT_ITEM':
+      return {}
+    default:
+      return state
+  }
+}
+
+const inventoryButton = (state = true, action) => {
+  switch (action.type) {
+    case 'INVENTORY':
+      return false
+    case 'SUBMIT_ITEM':
+      return true
+    default:
+      return state
+  }
+}
+
+const createItem = (state = false, action) => {
+  switch (action.type) {
+    case 'INVENTORY':
+      return true
+    case 'CREATE_ITEM':
+      return false
+    default:
+      return state
+  }
+}
+
+const submitItem = (state = false, action) => {
+  switch (action.type) {
+    case 'CREATE_ITEM':
+      return true
+    case 'SUBMIT_ITEM':
+      return false
+    default:
+      return state
+  }
+}
+
+const reducer = combineReducers({itemForm, inventoryButton, createItem, submitItem})
+
+// const reducer = (state = initialState, action) => {
+//   switch (action.type) {
+//     case 'INVENTORY':
+//     return Object.assign({}, state, {
+//       inventoryButton: false,
+//       createItem: true
+//     })
+//     break
+//     case 'CREATE_ITEM':
+//     return Object.assign({}, state, {
+//       createItem: false,
+//       submitItem: true
+//     })
+//     break
+//     case 'SUBMIT_ITEM':
+//     return Object.assign({}, state, {
+//       submitItem: false,
+//       inventoryButton: true
+//     })
+//     default:
+//     return state
+//   }
+// }
 
 const store = createStore(reducer, initialState, applyMiddleware(thunk))
 
@@ -58,31 +111,50 @@ const Inventory = () => {
 
 const CreateItem = () => {
   const {submitItem} = store.getState()
-  const handleClick = () => store.dispatch({type: "SUBMIT_ITEM"})
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    store.dispatch(() => {
+      const itemForm = store.getState().itemForm
+      fetch('/inventory-items', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+          itemForm
+        )
+      })
+    })
+  }
+  const handleChange = (event) => {
+    const value = event.target.value
+    const field = event.target.getAttribute('name')
+    store.dispatch({type: 'FORM_UPDATED', value, field})
+  }
   return (
     !submitItem
     ? null
-    : <div className="add-inventory">
+    : <form className="add-inventory" onSubmit={handleSubmit}>
         <div className="inventory-properties">
           <div className="inventory-property">Item SKU</div>
           <div className="ui input inventory-value">
-            <input type="text" className="inventory-value"/>
+            <input name="sku" type="text" className="inventory-value" onChange={handleChange}/>
           </div>
         </div>
         <div className="inventory-properties">
           <div className="inventory-property">Description</div>
           <div className="ui input inventory-value">
-            <input type="text" className="inventory-value"/>
+            <input name="description" type="text" className="inventory-value" onChange={handleChange}/>
           </div>
         </div>
         <div className="inventory-properties">
           <div className="inventory-property">Price</div>
           <div className="ui input inventory-value">
-            <input type="text" className="inventory-value"/>
+            <input name="price"  type="text" className="inventory-value" onChange={handleChange}/>
           </div>
         </div>
-        <button id="submit-item" className="submit-item massive ui positive button" onClick={handleClick}>Submit Item</button>
-      </div>
+        <input type="submit" value="Submit Item" id="submit-item" className="submit-item massive ui positive button"/>
+      </form>
   )
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express')
 const bodyParser = require('body-parser')
 const {MongoClient} = require('mongodb')
@@ -8,6 +9,8 @@ const url = 'mongodb://localhost:27017/poshly'
 const app = express()
 
 app.use(bodyParser.json())
+
+app.use(express.static('public'))
 
 const PORT = 3000
 
@@ -30,6 +33,7 @@ app.post('/inventory-items', (req, res) => {
         return db.close()
       }
       res.status(201).json(item)
+      console.log(req.body)
       db.close()
     })
   })
