@@ -80,7 +80,10 @@ const Inventory = () => {
   return (
     !createItem
     ? null
-    : <div className="inventory-button" onClick={handleClick}>Create Item</div>
+    : <div>
+        <div className="inventory-button" onClick={handleClick}>Create Item</div>
+        <div className="inventory-button" onClick={handleClick}>Search Items</div>
+      </div>
   )
 }
 
