@@ -109,26 +109,22 @@ const CreateItem = () => {
   return (
     !submitItem
     ? null
-    : <form className="add-inventory" onSubmit={handleSubmit}>
-        <div className="inventory-properties">
-          <div className="inventory-property">Item SKU</div>
-          <div className="ui input inventory-value">
-            <input name="sku" type="text" className="inventory-value" onChange={handleChange}/>
-          </div>
+    : <form className="ui form centered grid add-inventory" onSubmit={handleSubmit}>
+        <div className="field column nine wide inventory-properties">
+          <label className="inventory-property">Item SKU</label>
+          <input name="sku" type="text" className="inventory-value" onChange={handleChange}/>
         </div>
-        <div className="inventory-properties">
-          <div className="inventory-property">Description</div>
-          <div className="ui input inventory-value">
-            <input name="description" type="text" className="inventory-value" onChange={handleChange}/>
-          </div>
+        <div className="field column nine wide inventory-properties">
+          <label className="inventory-property">Description</label>
+          <input name="description" type="text" className="inventory-value" onChange={handleChange}/>
         </div>
-        <div className="inventory-properties">
-          <div className="inventory-property">Price</div>
-          <div className="ui input inventory-value">
-            <input name="price"  type="text" className="inventory-value" onChange={handleChange}/>
-          </div>
+        <div className="field column nine wide inventory-properties">
+          <label className="inventory-property">Price</label>
+          <input name="price"  type="text" className="inventory-value" onChange={handleChange}/>
         </div>
-        <input type="submit" value="Submit Item" id="submit-item" className="submit-item massive ui positive button"/>
+        <div className="ui column nine wide centered aligned">
+        <input type="submit" value="Submit Item" id="submit-item" className="massive ui positive button"/>
+        </div>
       </form>
   )
 }

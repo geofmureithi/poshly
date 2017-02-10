@@ -16,8 +16,9 @@ body {
   font-size: 40px;
   font-weight: bold;
   letter-spacing: 4px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-bottom: 20px;
 }
 .main-buttons {
   margin-top: 60px;
@@ -31,22 +32,19 @@ body {
   font-size: 35px;
   background-color: white;
 }
-.add-inventory {
-  text-align: center;
-}
-.inventory-property,
-.inventory-value {
+.ui.form .field>label,
+.ui.form .field>input {
+  font-family: 'Raleway', sans-serif;
+  font-weight: normal;
   font-size: 30px;
 }
-.inventory-property {
-  padding-top: 20px;
-  padding-bottom: 10px;
+.ui.form .field>input {
+  padding: 10px;
+  margin-top: 10px;
 }
-#submit-item {
+.ui.positive.button {
   font-family: 'Raleway', sans-serif;
   font-weight: bold;
-  margin-top: 40px;
+  font-size: 30px;
+  padding: 20px;
 }
-/*.submit-item {
-  font-family: 'Raleway', sans-serif;
-}*/
