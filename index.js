@@ -7,7 +7,6 @@ const initialState = {
   inventoryButton: true,
   createItem: false,
   submitItem: false,
-  // inventory: [],
   itemForm: {
     sku: '',
     description: '',
@@ -63,30 +62,6 @@ const submitItem = (state = false, action) => {
 
 const reducer = combineReducers({itemForm, inventoryButton, createItem, submitItem})
 
-// const reducer = (state = initialState, action) => {
-//   switch (action.type) {
-//     case 'INVENTORY':
-//     return Object.assign({}, state, {
-//       inventoryButton: false,
-//       createItem: true
-//     })
-//     break
-//     case 'CREATE_ITEM':
-//     return Object.assign({}, state, {
-//       createItem: false,
-//       submitItem: true
-//     })
-//     break
-//     case 'SUBMIT_ITEM':
-//     return Object.assign({}, state, {
-//       submitItem: false,
-//       inventoryButton: true
-//     })
-//     default:
-//     return state
-//   }
-// }
-
 const store = createStore(reducer, initialState, applyMiddleware(thunk))
 
 const HomePage = () => {
@@ -123,7 +98,7 @@ const CreateItem = () => {
         body: JSON.stringify(
           itemForm
         )
-      })
+      }).then(() => store.dispatch({type: 'SUBMIT_ITEM'}))
     })
   }
   const handleChange = (event) => {

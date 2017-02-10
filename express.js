@@ -26,14 +26,13 @@ app.post('/inventory-items', (req, res) => {
     const item = Object.assign({}, req.body, {
       id
     })
-    inventory.insertOne(item, (err, result) => {
+    inventory.insert(item, (err, result) => {
       if (err) {
         console.log(err)
         res.sendStatus(500)
         return db.close()
       }
       res.status(201).json(item)
-      console.log(req.body)
       db.close()
     })
   })
