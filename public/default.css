@@ -31,14 +31,17 @@ body {
   padding: 30px;
   font-size: 35px;
   background-color: white;
+  margin-bottom: 30px;
 }
 .ui.form .field>label,
-.ui.form .field>input {
+.ui.form .field>input,
+#search-inventory-bar {
   font-family: 'Raleway', sans-serif;
   font-weight: normal;
   font-size: 30px;
 }
-.ui.form .field>input {
+.ui.form .field>input,
+#search-inventory-bar {
   padding: 10px;
   margin-top: 10px;
 }

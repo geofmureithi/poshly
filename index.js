@@ -15,6 +15,8 @@ const initialState = {
   }
 }
 
+
+
 const itemForm = (state = {}, action) => {
   switch (action.type) {
     case 'FORM_UPDATED':
@@ -98,7 +100,6 @@ const Inventory = () => {
       store.dispatch({type: 'SEARCH_ITEMS'})
     }
   }
-  // store.dispatch({type: "CREATE_ITEM"})
   return (
     !inventory
     ? null
@@ -117,10 +118,13 @@ const SearchItems = () => {
     ? null
     : <div className="ui form centered grid">
         <div className="field column nine wide inventory-properties">
-          <div className="ui icon input">
-            <input className="prompt" type="text" placeholder="Search inventory"/>
+          <label className="inventory-property">Search Inventory</label>
+          <div id="search-inventory-container" className="ui icon input">
+            <input id="search-inventory-bar" className="prompt" type="text" placeholder=" enter item number or description"/>
             <i className="search icon"></i>
+            <div className="results"></div>
           </div>
+
         </div>
       </div>
   )
