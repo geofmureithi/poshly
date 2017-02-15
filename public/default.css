@@ -33,6 +33,12 @@ body {
   background-color: white;
   margin-bottom: 30px;
 }
+
+.main-buttons,
+.inventory-button,
+td {
+  cursor: pointer;
+}
 .ui.grid {
   margin: 0;
 }

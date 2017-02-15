@@ -20,6 +20,8 @@ const inventoryItems = (state = [], action) => {
   switch (action.type) {
     case 'ITEMS_LOADED':
       return state.concat(action.items)
+    case 'HOME_PAGE':
+      return []
     default:
       return state
   }
@@ -171,7 +173,7 @@ const SearchItems = () => {
                     <td>{index + 1}</td>
                     <td>{item.sku}</td>
                     <td>{item.description}</td>
-                    <td>{`$${item.price}`}</td>
+                    <td><span>$</span>{item.price}</td>
                   </tr>
                 )
               })}
@@ -210,15 +212,15 @@ const CreateItem = () => {
     : <form className="ui form centered grid add-inventory" onSubmit={handleSubmit}>
         <div className="field column nine wide inventory-properties">
           <label className="inventory-property">Item SKU</label>
-          <input name="sku" type="text" className="inventory-value" onChange={handleChange}/>
+          <input name="sku" type="text" className="inventory-value" required onChange={handleChange}/>
         </div>
         <div className="field column nine wide inventory-properties">
           <label className="inventory-property">Description</label>
-          <input name="description" type="text" className="inventory-value" onChange={handleChange}/>
+          <input name="description" type="text" className="inventory-value" required onChange={handleChange}/>
         </div>
         <div className="field column nine wide inventory-properties">
           <label className="inventory-property">Price</label>
-          <input name="price"  type="text" className="inventory-value" onChange={handleChange}/>
+          <input name="price"  type="text" className="inventory-value" required onChange={handleChange}/>
         </div>
         <div className="ui column nine wide centered aligned">
         <input type="submit" value="Submit Item" id="submit-item" className="massive ui positive button"/>
