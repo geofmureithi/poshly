@@ -14,6 +14,26 @@ app.use(express.static('public'))
 
 const PORT = 3000
 
+app.get('/inventory-items', (req, res) => {
+
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      console.log(err)
+      return res.sendStatus(500)
+    }
+    const inventory = db.collection('inventory')
+    inventory.find().toArray((err, result) => {
+      if (err) {
+        console.log(err)
+        res.sendStatus(500)
+        return db.close()
+      }
+      res.json(result)
+      db.close()
+    })
+  })
+})
+
 app.post('/inventory-items', (req, res) => {
 
   MongoClient.connect(url, (err, db) => {
@@ -36,7 +56,6 @@ app.post('/inventory-items', (req, res) => {
       db.close()
     })
   })
-
 })
 
 app.listen(PORT, () => {

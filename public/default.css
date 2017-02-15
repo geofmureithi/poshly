@@ -31,20 +31,44 @@ body {
   padding: 30px;
   font-size: 35px;
   background-color: white;
+  margin-bottom: 30px;
 }
 .ui.form .field>label,
-.ui.form .field>input {
+.ui.form .field>input,
+#search-inventory-bar {
   font-family: 'Raleway', sans-serif;
   font-weight: normal;
   font-size: 30px;
 }
-.ui.form .field>input {
+.ui.form .field>input,
+#search-inventory-bar {
   padding: 10px;
   margin-top: 10px;
+  border: none;
+}
+#search-inventory-bar {
+  margin-bottom: 30px;
 }
 .ui.positive.button {
   font-family: 'Raleway', sans-serif;
   font-weight: bold;
   font-size: 30px;
   padding: 20px;
+}
+#inventory-table {
+  font-family: 'Raleway', sans-serif;
+  font-weight: normal;
+  font-size: 30px;
+}
+#table-body tr td:first-child {
+  font-weight: bold;
+}
+#table-scroll {
+  overflow-y: auto;
+  white-space: nowrap;
+  height: 1000px;
+  padding: 0;
+}
+.table-number {
+  font-weight: bold;
 }

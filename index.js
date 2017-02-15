@@ -4,13 +4,24 @@ const {createStore, applyMiddleware, combineReducers} = require('redux')
 const thunk = require('redux-thunk').default
 
 const initialState = {
-  inventoryButton: true,
+  homePage: true,
+  inventoryPage: false,
   createItem: false,
-  submitItem: false,
+  searchItems: false,
+  inventoryItems: [],
   itemForm: {
     sku: '',
     description: '',
     price: ''
+  }
+}
+
+const inventoryItems = (state = [], action) => {
+  switch (action.type) {
+    case 'ITEMS_LOADED':
+      return state.concat(action.items)
+    default:
+      return state
   }
 }
 
@@ -27,12 +38,29 @@ const itemForm = (state = {}, action) => {
   }
 }
 
-const inventoryButton = (state = true, action) => {
+const homePage = (state = true, action) => {
   switch (action.type) {
     case 'INVENTORY':
       return false
     case 'SUBMIT_ITEM':
       return true
+    case 'HOME_PAGE':
+      return true
+    default:
+      return state
+  }
+}
+
+const inventoryPage = (state = false, action) => {
+  switch (action.type) {
+    case 'INVENTORY':
+      return true
+    case 'CREATE_ITEM':
+      return false
+    case 'SEARCH_ITEMS':
+      return false
+    case 'HOME_PAGE':
+      return false
     default:
       return state
   }
@@ -40,52 +68,122 @@ const inventoryButton = (state = true, action) => {
 
 const createItem = (state = false, action) => {
   switch (action.type) {
-    case 'INVENTORY':
-      return true
-    case 'CREATE_ITEM':
-      return false
-    default:
-      return state
-  }
-}
-
-const submitItem = (state = false, action) => {
-  switch (action.type) {
     case 'CREATE_ITEM':
       return true
     case 'SUBMIT_ITEM':
       return false
+    case 'HOME_PAGE':
+      return false
     default:
       return state
   }
 }
 
-const reducer = combineReducers({itemForm, inventoryButton, createItem, submitItem})
+const searchItems = (state = false, action) => {
+  switch (action.type) {
+    case 'SEARCH_ITEMS':
+      return true
+    case 'INVENTORY':
+      return false
+    case 'HOME_PAGE':
+      return false
+    default:
+      return state
+  }
+}
+
+const reducer = combineReducers({inventoryItems, itemForm, homePage, createItem, inventoryPage, searchItems})
 
 const store = createStore(reducer, initialState, applyMiddleware(thunk))
 
 const HomePage = () => {
-  const {inventoryButton} = store.getState()
+  const {homePage} = store.getState()
   const handleClick = () => store.dispatch({type: "INVENTORY"})
   return (
-    !inventoryButton
+    !homePage
     ? null
     : <div className="inventory-button" onClick={handleClick}>Inventory</div>
   )
 }
 
-const Inventory = () => {
-  const {createItem} = store.getState()
-  const handleClick = () => store.dispatch({type: "CREATE_ITEM"})
+const itemsLoaded = (items) => {
+  return {type: 'ITEMS_LOADED', items}
+}
+
+const fetchItems = (dispatch) => {
+  fetch('/inventory-items')
+    .then((response) => {
+      return response.json()
+  }).then((items) => {
+    dispatch(itemsLoaded(items))
+    dispatch({type: 'SEARCH_ITEMS'})
+  })
+}
+
+const InventoryPage = () => {
+  const {inventoryPage} = store.getState()
+  const handleClick = (event) => {
+    const value = event.target.getAttribute('name')
+    if (value === 'create-item') {
+      store.dispatch({type: 'CREATE_ITEM'})
+    } else if (value === 'search-items') {
+        store.dispatch(fetchItems)
+    }
+  }
   return (
-    !createItem
+    !inventoryPage
     ? null
-    : <div className="inventory-button" onClick={handleClick}>Create Item</div>
+    : <div>
+        <div name="create-item" className="inventory-button" onClick={handleClick}>Create Item</div>
+        <div></div>
+        <div name="search-items" className="inventory-button" onClick={handleClick}>Search Items</div>
+      </div>
+  )
+}
+
+const SearchItems = () => {
+  const {searchItems, inventoryItems} = store.getState()
+  return (
+    !searchItems
+    ? null
+    : <div className="ui form centered grid">
+        <div className="field column nine wide inventory-properties">
+          <label className="inventory-property">Search Inventory</label>
+          <div id="search-inventory-container" className="ui icon input">
+            <input id="search-inventory-bar" className="prompt" type="text" placeholder="enter description or item number"/>
+            <i className="search icon"></i>
+          </div>
+        </div>
+        <div id="table-scroll" className="column fourteen wide">
+          <table id="inventory-table" className="ui striped table">
+            <thead>
+              <tr>
+                <th className="table-number">#</th>
+                <th>SKU</th>
+                <th>Description</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              {inventoryItems.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{item.sku}</td>
+                    <td>{item.description}</td>
+                    <td>{`$${item.price}`}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
   )
 }
 
 const CreateItem = () => {
-  const {submitItem} = store.getState()
+  const {createItem} = store.getState()
   const handleSubmit = (event) => {
     event.preventDefault()
     store.dispatch(() => {
@@ -107,7 +205,7 @@ const CreateItem = () => {
     store.dispatch({type: 'FORM_UPDATED', value, field})
   }
   return (
-    !submitItem
+    !createItem
     ? null
     : <form className="ui form centered grid add-inventory" onSubmit={handleSubmit}>
         <div className="field column nine wide inventory-properties">
@@ -129,15 +227,28 @@ const CreateItem = () => {
   )
 }
 
+const Header = () => {
+  const handleClick = (event) => {
+    const value = event.target.getAttribute('name')
+    if (value === 'homeButton') {
+      store.dispatch({type: 'HOME_PAGE'})
+    }
+  }
+  return (
+    <div name="homeButton" className="header" onClick={handleClick}>POSHLY</div>
+  )
+}
+
 const redraw = () => {
   render(
     <div className="container">
-      <div className="header">POSHLY</div>
+      <Header/>
       <div className="main-buttons">
         <HomePage/>
-        <Inventory/>
+        <InventoryPage/>
       </div>
       <CreateItem/>
+      <SearchItems/>
     </div>,
     document.getElementById('root')
   )
