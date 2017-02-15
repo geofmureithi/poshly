@@ -29,7 +29,6 @@ app.get('/inventory-items', (req, res) => {
         return db.close()
       }
       res.json(result)
-      console.log("items loaded")
       db.close()
     })
   })
