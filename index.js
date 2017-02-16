@@ -2,6 +2,7 @@ const React = require('react')
 const {render} = require('react-dom')
 const {createStore, applyMiddleware, combineReducers} = require('redux')
 const thunk = require('redux-thunk').default
+const {fetchItems} = require('./actions.js')
 
 const initialState = {
   homePage: true,
@@ -14,6 +15,27 @@ const initialState = {
     sku: '',
     description: '',
     price: ''
+  },
+  customerForm: {
+    firstName: '',
+    lastName: '',
+    streetAddress: '',
+    city: '',
+    state: '',
+    zipcode: '',
+    phone: '',
+    email: ''
+  }
+}
+
+const customerForm = (state = {}, action) => {
+  switch (action.type) {
+    case 'CUSTOMER_ADDED':
+      return Object.assign({}, state, {
+        [action.field]: action.value
+      })
+    default:
+      return state
   }
 }
 
@@ -104,9 +126,39 @@ const searchItems = (state = false, action) => {
   }
 }
 
-const reducer = combineReducers({term, inventoryItems, itemForm, homePage, createItem, inventoryPage, searchItems})
+const reducer = combineReducers({customerForm, term, inventoryItems, itemForm, homePage, createItem, inventoryPage, searchItems})
 
 const store = createStore(reducer, initialState, applyMiddleware(thunk))
+
+const addItems = (dispatch) => {
+  const itemForm = store.getState().itemForm
+  fetch('/inventory-items', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(
+      itemForm
+    )
+  }).then(() => {
+    dispatch({type: 'SUBMIT_ITEM'})
+  })
+}
+
+const addCustomer = (dispatch) => {
+  const customerForm = store.getState().customerForm
+  fetch('/customers', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(
+      customerForm
+    )
+  }).then(() => {
+    dispatch({type: 'CUSTOMER_ADDED'})
+  })
+}
 
 const HomePage = () => {
   const {homePage} = store.getState()
@@ -116,20 +168,6 @@ const HomePage = () => {
     ? null
     : <div className="inventory-button" onClick={handleClick}>Inventory</div>
   )
-}
-
-const itemsLoaded = (items) => {
-  return {type: 'ITEMS_LOADED', items}
-}
-
-const fetchItems = (dispatch) => {
-  fetch('/inventory-items')
-    .then((response) => {
-      return response.json()
-  }).then((items) => {
-    dispatch(itemsLoaded(items))
-    dispatch({type: 'SEARCH_ITEMS'})
-  })
 }
 
 const InventoryPage = () => {
@@ -170,7 +208,7 @@ const SearchItems = () => {
         <div className="field column nine wide inventory-properties">
           <label className="inventory-property">Search Inventory</label>
           <div id="search-inventory-container" className="ui icon input">
-            <input id="search-inventory-bar" className="prompt" type="text" placeholder="enter description" onChange={handleChange}/>
+            <input id="search-inventory-bar" className="prompt" type="text" placeholder="enter description or SKU" onChange={handleChange}/>
             <i className="search icon"></i>
           </div>
         </div>
@@ -207,18 +245,7 @@ const CreateItem = () => {
   const {createItem} = store.getState()
   const handleSubmit = (event) => {
     event.preventDefault()
-    store.dispatch(() => {
-      const itemForm = store.getState().itemForm
-      fetch('/inventory-items', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(
-          itemForm
-        )
-      }).then(() => store.dispatch({type: 'SUBMIT_ITEM'}))
-    })
+    store.dispatch(addItems)
   }
   const handleChange = (event) => {
     const value = event.target.value
