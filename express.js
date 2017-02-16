@@ -22,7 +22,7 @@ app.get('/inventory-items', (req, res) => {
       return res.sendStatus(500)
     }
     const inventory = db.collection('inventory')
-    inventory.find().toArray((err, result) => {
+    inventory.find().sort({description: 1}).toArray((err, result) => {
       if (err) {
         console.log(err)
         res.sendStatus(500)

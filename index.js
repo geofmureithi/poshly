@@ -9,6 +9,7 @@ const initialState = {
   createItem: false,
   searchItems: false,
   inventoryItems: [],
+  term: '',
   itemForm: {
     sku: '',
     description: '',
@@ -16,10 +17,21 @@ const initialState = {
   }
 }
 
+const term = (state = '', action) => {
+  switch (action.type) {
+    case 'TERM_UPDATED':
+      return action.value
+    default:
+      return state
+  }
+}
+
 const inventoryItems = (state = [], action) => {
   switch (action.type) {
     case 'ITEMS_LOADED':
       return state.concat(action.items)
+    case 'HOME_PAGE':
+      return []
     default:
       return state
   }
@@ -92,7 +104,7 @@ const searchItems = (state = false, action) => {
   }
 }
 
-const reducer = combineReducers({inventoryItems, itemForm, homePage, createItem, inventoryPage, searchItems})
+const reducer = combineReducers({term, inventoryItems, itemForm, homePage, createItem, inventoryPage, searchItems})
 
 const store = createStore(reducer, initialState, applyMiddleware(thunk))
 
@@ -142,15 +154,23 @@ const InventoryPage = () => {
 }
 
 const SearchItems = () => {
-  const {searchItems, inventoryItems} = store.getState()
+  const {searchItems, inventoryItems, term} = store.getState()
+  if (!searchItems) {
+    return null
+  }
+  const matches = inventoryItems.filter(item => {
+    return item.description.toLowerCase().indexOf(term.toLowerCase()) > -1 || item.sku.indexOf(term) > -1
+  })
+  const handleChange = event => {
+    const value = event.target.value
+    store.dispatch({type: 'TERM_UPDATED', value})
+  }
   return (
-    !searchItems
-    ? null
-    : <div className="ui form centered grid">
+      <div className="ui form centered grid">
         <div className="field column nine wide inventory-properties">
           <label className="inventory-property">Search Inventory</label>
           <div id="search-inventory-container" className="ui icon input">
-            <input id="search-inventory-bar" className="prompt" type="text" placeholder="enter description or item number"/>
+            <input id="search-inventory-bar" className="prompt" type="text" placeholder="enter description" onChange={handleChange}/>
             <i className="search icon"></i>
           </div>
         </div>
@@ -165,16 +185,17 @@ const SearchItems = () => {
               </tr>
             </thead>
             <tbody id="table-body">
-              {inventoryItems.map((item, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{item.sku}</td>
-                    <td>{item.description}</td>
-                    <td>{`$${item.price}`}</td>
-                  </tr>
-                )
-              })}
+              {matches.map((item, index) => {
+                   return (
+                     <tr key={index}>
+                       <td>{index + 1}</td>
+                       <td>{item.sku}</td>
+                       <td>{item.description}</td>
+                       <td><span>$</span>{item.price}</td>
+                     </tr>
+                   )
+               })
+            }
             </tbody>
           </table>
         </div>
@@ -210,18 +231,18 @@ const CreateItem = () => {
     : <form className="ui form centered grid add-inventory" onSubmit={handleSubmit}>
         <div className="field column nine wide inventory-properties">
           <label className="inventory-property">Item SKU</label>
-          <input name="sku" type="text" className="inventory-value" onChange={handleChange}/>
+          <input name="sku" type="text" className="inventory-value" required onChange={handleChange}/>
         </div>
         <div className="field column nine wide inventory-properties">
           <label className="inventory-property">Description</label>
-          <input name="description" type="text" className="inventory-value" onChange={handleChange}/>
+          <input name="description" type="text" className="inventory-value" required onChange={handleChange}/>
         </div>
         <div className="field column nine wide inventory-properties">
           <label className="inventory-property">Price</label>
-          <input name="price"  type="text" className="inventory-value" onChange={handleChange}/>
+          <input name="price"  type="text" className="inventory-value" required onChange={handleChange}/>
         </div>
         <div className="ui column nine wide centered aligned">
-        <input type="submit" value="Submit Item" id="submit-item" className="massive ui positive button"/>
+          <input type="submit" value="Submit Item" id="submit-item" className="massive ui positive button"/>
         </div>
       </form>
   )

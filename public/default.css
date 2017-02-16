@@ -25,7 +25,7 @@ body {
   text-align: center;
 }
 .inventory-button {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   display: inline-block;
   width: 400px;
   padding: 30px;
@@ -33,10 +33,19 @@ body {
   background-color: white;
   margin-bottom: 30px;
 }
+
+.main-buttons,
+.inventory-button,
+td {
+  cursor: pointer;
+}
+.ui.grid {
+  margin: 0;
+}
 .ui.form .field>label,
 .ui.form .field>input,
 #search-inventory-bar {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: normal;
   font-size: 30px;
 }
@@ -50,13 +59,13 @@ body {
   margin-bottom: 30px;
 }
 .ui.positive.button {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: bold;
   font-size: 30px;
   padding: 20px;
 }
 #inventory-table {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: normal;
   font-size: 30px;
 }
