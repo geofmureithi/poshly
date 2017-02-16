@@ -7,6 +7,7 @@ const {fetchItems} = require('./actions.js')
 const initialState = {
   homePage: true,
   inventoryPage: false,
+  customerPage: false,
   createItem: false,
   searchItems: false,
   inventoryItems: [],
@@ -25,6 +26,17 @@ const initialState = {
     zipcode: '',
     phone: '',
     email: ''
+  }
+}
+
+const customerPage = (state = false, action) => {
+  switch (action.type) {
+    case 'CUSTOMERS':
+      return true
+    case 'HOME_PAGE':
+      return false
+    default:
+      return state
   }
 }
 
@@ -76,6 +88,8 @@ const homePage = (state = true, action) => {
   switch (action.type) {
     case 'INVENTORY':
       return false
+    case 'CUSTOMERS':
+      return false
     case 'SUBMIT_ITEM':
       return true
     case 'HOME_PAGE':
@@ -126,7 +140,7 @@ const searchItems = (state = false, action) => {
   }
 }
 
-const reducer = combineReducers({customerForm, term, inventoryItems, itemForm, homePage, createItem, inventoryPage, searchItems})
+const reducer = combineReducers({customerPage, customerForm, term, inventoryItems, itemForm, homePage, createItem, inventoryPage, searchItems})
 
 const store = createStore(reducer, initialState, applyMiddleware(thunk))
 
@@ -162,13 +176,79 @@ const addCustomer = (dispatch) => {
 
 const HomePage = () => {
   const {homePage} = store.getState()
-  const handleClick = () => store.dispatch({type: "INVENTORY"})
+  const handleClick = (event) => {
+    const value = event.target.getAttribute('name')
+    if (value === "inventory") {
+      store.dispatch({type: "INVENTORY"})
+    } else if (value === "customers") {
+      store.dispatch({type: "CUSTOMERS"})
+    }
+  }
   return (
     !homePage
     ? null
-    : <div className="inventory-button" onClick={handleClick}>Inventory</div>
+    : <div>
+        <div name="inventory" className="main-button" onClick={handleClick}>Inventory</div>
+        <div></div>
+        <div name="customers" className="main-button" onClick={handleClick}>Customers</div>
+      </div>
   )
 }
+const CreateCustomer = () => {
+
+  return (
+    <form id="" >
+      <div >
+        <label>First Name</label>
+        <input name="first-name" type="text" required/>
+      </div>
+      <div>
+        <label>Last Name</label>
+        <input name="last-name" type="text"/>
+      </div>
+      <div>
+        <label>Street Address</label>
+        <input name="street-address" type="text"/>
+      </div>
+      <div>
+        <label>City</label>
+        <input name="city" type="text"/>
+      </div>
+      <div>
+        <label>State</label>
+        <input name="state" type="text"/>
+      </div>
+      <div>
+        <label>Zipcode</label>
+        <input name="zipcode" type="text"/>
+      </div>
+      <div>
+        <label>Phone Number</label>
+        <input name="phone" type="text"/>
+      </div>
+      <div>
+        <label>Email</label>
+        <input name="email" type="text"/>
+      </div>
+      <div>
+        <input type="submit" value="Submit Customer"/>
+      </div>
+    </form>
+  )
+}
+
+const CustomerPage = () => {
+  const {customerPage} = store.getState()
+  if (!customerPage) {
+    return null
+  }
+  return (
+    <div>
+      <div className="main-button">Create Customer</div>
+    </div>
+  )
+}
+
 
 const InventoryPage = () => {
   const {inventoryPage} = store.getState()
@@ -177,16 +257,16 @@ const InventoryPage = () => {
     if (value === 'create-item') {
       store.dispatch({type: 'CREATE_ITEM'})
     } else if (value === 'search-items') {
-        store.dispatch(fetchItems)
+      store.dispatch(fetchItems)
     }
   }
   return (
     !inventoryPage
     ? null
     : <div>
-        <div name="create-item" className="inventory-button" onClick={handleClick}>Create Item</div>
+        <div name="create-item" className="main-button" onClick={handleClick}>Create Item</div>
         <div></div>
-        <div name="search-items" className="inventory-button" onClick={handleClick}>Search Items</div>
+        <div name="search-items" className="main-button" onClick={handleClick}>Search Items</div>
       </div>
   )
 }
@@ -224,14 +304,14 @@ const SearchItems = () => {
             </thead>
             <tbody id="table-body">
               {matches.map((item, index) => {
-                   return (
-                     <tr key={index}>
-                       <td>{index + 1}</td>
-                       <td>{item.sku}</td>
-                       <td>{item.description}</td>
-                       <td><span>$</span>{item.price}</td>
-                     </tr>
-                   )
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{item.sku}</td>
+                    <td>{item.description}</td>
+                    <td><span>$</span>{item.price}</td>
+                  </tr>
+                  )
                })
             }
             </tbody>
@@ -255,7 +335,7 @@ const CreateItem = () => {
   return (
     !createItem
     ? null
-    : <form className="ui form centered grid add-inventory" onSubmit={handleSubmit}>
+    : <form id="create-item" className="ui form centered grid add-inventory" onSubmit={handleSubmit}>
         <div className="field column nine wide inventory-properties">
           <label className="inventory-property">Item SKU</label>
           <input name="sku" type="text" className="inventory-value" required onChange={handleChange}/>
@@ -291,9 +371,10 @@ const redraw = () => {
   render(
     <div className="container">
       <Header/>
-      <div className="main-buttons">
+      <div className="home">
         <HomePage/>
         <InventoryPage/>
+        <CustomerPage/>
       </div>
       <CreateItem/>
       <SearchItems/>
