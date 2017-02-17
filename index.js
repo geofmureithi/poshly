@@ -34,6 +34,8 @@ const createCustomer = (state = false, action) => {
   switch (action.type) {
     case 'CREATE_CUSTOMER':
       return true
+    case 'HOME_PAGE':
+      return false
     default:
       return state
   }
@@ -54,7 +56,7 @@ const customerPage = (state = false, action) => {
 
 const customerForm = (state = {}, action) => {
   switch (action.type) {
-    case 'CUSTOMER_ADDED':
+    case 'CUSTOMER_FORM_UPDATED':
       return Object.assign({}, state, {
         [action.field]: action.value
       })
@@ -217,7 +219,7 @@ const CreateCustomer = () => {
   const handleChange = (event) => {
     const value = event.target.value
     const field = event.target.getAttribute('name')
-    store.dispatch({type: 'CUSTOMER_ADDED', value, field})
+    store.dispatch({type: 'CUSTOMER_FORM_UPDATED', value, field})
   }
   if (!createCustomer) {
     return null

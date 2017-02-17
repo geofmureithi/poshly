@@ -76,7 +76,7 @@ app.post('/customers', (req, res) => {
         res.sendStatus(500)
         return db.close()
       }
-      res.sendStatus(201).json(customer)
+      res.status(201).json(customer)
       db.close()
     })
   })
