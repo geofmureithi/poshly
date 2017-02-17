@@ -4,32 +4,6 @@ const {createStore, applyMiddleware, combineReducers} = require('redux')
 const thunk = require('redux-thunk').default
 const {fetchItems} = require('./actions.js')
 
-const initialState = {
-  homePage: true,
-  inventoryPage: false,
-  customerPage: false,
-  createItem: false,
-  createCustomer: false,
-  searchItems: false,
-  inventoryItems: [],
-  term: '',
-  itemForm: {
-    sku: '',
-    description: '',
-    price: ''
-  },
-  customerForm: {
-    firstName: '',
-    lastName: '',
-    streetAddress: '',
-    city: '',
-    state: '',
-    zipcode: '',
-    phone: '',
-    email: ''
-  }
-}
-
 const createCustomer = (state = false, action) => {
   switch (action.type) {
     case 'CREATE_CUSTOMER':
@@ -162,7 +136,7 @@ const searchItems = (state = false, action) => {
 
 const reducer = combineReducers({createCustomer, customerPage, customerForm, term, inventoryItems, itemForm, homePage, createItem, inventoryPage, searchItems})
 
-const store = createStore(reducer, initialState, applyMiddleware(thunk))
+const store = createStore(reducer, applyMiddleware(thunk))
 
 const addItems = (dispatch) => {
   const itemForm = store.getState().itemForm
