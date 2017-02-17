@@ -36,6 +36,8 @@ const createCustomer = (state = false, action) => {
       return true
     case 'HOME_PAGE':
       return false
+    case 'CUSTOMER_ADDED':
+      return false
     default:
       return state
   }
@@ -109,6 +111,8 @@ const homePage = (state = true, action) => {
     case 'SUBMIT_ITEM':
       return true
     case 'HOME_PAGE':
+      return true
+    case 'CUSTOMER_ADDED':
       return true
     default:
       return state
