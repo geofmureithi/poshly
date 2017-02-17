@@ -58,6 +58,30 @@ app.post('/inventory-items', (req, res) => {
   })
 })
 
+app.post('/customers', (req, res) => {
+
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      console.log(err)
+      return res.sendStatus(500)
+    }
+    const customers = db.collection('customers')
+    const id = uuid()
+    const customer = Object.assign({}, req.body, {
+      id
+    })
+    customers.insert(customer, (err, result) => {
+      if (err) {
+        console.log(err)
+        res.sendStatus(500)
+        return db.close()
+      }
+      res.status(201).json(customer)
+      db.close()
+    })
+  })
+})
+
 app.listen(PORT, () => {
   console.log(`listening on ${PORT}`)
 })
