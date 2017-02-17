@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "nodemon express.js",
-    "bundle": "browserify -t babelify index.js -o main.js",
+    "bundle": "browserify -t babelify index.js -o public/main.js",
     "bundle:watchify": "watchify -v -t babelify index.js -o public/main.js"
   },
   "repository": {
