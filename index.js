@@ -35,7 +35,7 @@ const createCustomer = (state = false, action) => {
     case 'CREATE_CUSTOMER':
       return true
     default:
-      return false
+      return state
   }
 }
 
@@ -58,6 +58,8 @@ const customerForm = (state = {}, action) => {
       return Object.assign({}, state, {
         [action.field]: action.value
       })
+    case 'CUSTOMER_ADDED':
+      return {}
     default:
       return state
   }
@@ -227,16 +229,16 @@ const CreateCustomer = () => {
           <label>Name</label>
           <div className="two fields">
             <div className="field">
-              <input name="first-name" type="text" placeholder="First Name" onChange={handleChange} required/>
+              <input name="firstName" type="text" placeholder="First Name" onChange={handleChange} required/>
             </div>
             <div className="field">
-              <input name="last-name" type="text" placeholder="Last Name" onChange={handleChange} required/>
+              <input name="lastName" type="text" placeholder="Last Name" onChange={handleChange} required/>
             </div>
           </div>
         </div>
         <div className="field">
           <label>Address</label>
-          <input name="street-address" type="text" onChange={handleChange} required/>
+          <input name="streetAddress" type="text" onChange={handleChange} required/>
         </div>
         <div className="fields">
           <div className="eight wide field">
