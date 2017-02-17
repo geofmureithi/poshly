@@ -45,12 +45,14 @@ td {
 
 #create-item .field>label,
 #create-item .field>input,
+#search-items .field>label,
 #search-inventory-bar {
   font-family: 'Quicksand', sans-serif;
   font-weight: normal;
   font-size: 30px;
 }
 #create-item .field>input,
+#search-items .field>label,
 #search-inventory-bar {
   padding: 10px;
   margin-top: 10px;

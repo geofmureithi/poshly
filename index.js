@@ -9,6 +9,7 @@ const initialState = {
   inventoryPage: false,
   customerPage: false,
   createItem: false,
+  createCustomer: false,
   searchItems: false,
   inventoryItems: [],
   term: '',
@@ -29,10 +30,21 @@ const initialState = {
   }
 }
 
+const createCustomer = (state = false, action) => {
+  switch (action.type) {
+    case 'CREATE_CUSTOMER':
+      return true
+    default:
+      return false
+  }
+}
+
 const customerPage = (state = false, action) => {
   switch (action.type) {
     case 'CUSTOMERS':
       return true
+    case 'CREATE_CUSTOMER':
+      return false
     case 'HOME_PAGE':
       return false
     default:
@@ -140,7 +152,7 @@ const searchItems = (state = false, action) => {
   }
 }
 
-const reducer = combineReducers({customerPage, customerForm, term, inventoryItems, itemForm, homePage, createItem, inventoryPage, searchItems})
+const reducer = combineReducers({createCustomer, customerPage, customerForm, term, inventoryItems, itemForm, homePage, createItem, inventoryPage, searchItems})
 
 const store = createStore(reducer, initialState, applyMiddleware(thunk))
 
@@ -195,43 +207,55 @@ const HomePage = () => {
   )
 }
 const CreateCustomer = () => {
-
+  const {createCustomer} = store.getState()
+  if (!createCustomer) {
+    return null
+  }
   return (
-    <form id="" >
-      <div >
-        <label>First Name</label>
-        <input name="first-name" type="text" required/>
-      </div>
-      <div>
-        <label>Last Name</label>
-        <input name="last-name" type="text"/>
-      </div>
-      <div>
-        <label>Street Address</label>
-        <input name="street-address" type="text"/>
-      </div>
-      <div>
-        <label>City</label>
-        <input name="city" type="text"/>
-      </div>
-      <div>
-        <label>State</label>
-        <input name="state" type="text"/>
-      </div>
-      <div>
-        <label>Zipcode</label>
-        <input name="zipcode" type="text"/>
-      </div>
-      <div>
-        <label>Phone Number</label>
-        <input name="phone" type="text"/>
-      </div>
-      <div>
-        <label>Email</label>
-        <input name="email" type="text"/>
-      </div>
-      <div>
-        <input type="submit" value="Submit Customer"/>
+    <form id="submit-customer" className="ui form grid centered">
+      <div className="column nine wide centered">
+        <div className="field">
+          <label>Name</label>
+          <div className="two fields">
+            <div className="field">
+              <input name="first-name" type="text" placeholder="First Name" required/>
+            </div>
+            <div className="field">
+              <input name="last-name" type="text" placeholder="Last Name" required/>
+            </div>
+          </div>
+        </div>
+        <div className="field">
+          <label>Address</label>
+          <input name="street-address" type="text" required/>
+        </div>
+        <div className="fields">
+          <div className="eight wide field">
+            <label>City</label>
+            <input name="city" type="text" required/>
+          </div>
+          <div className="four wide field">
+            <label>State</label>
+            <input name="state" type="text" required/>
+          </div>
+          <div className="four wide field">
+            <label>Zipcode</label>
+            <input name="zipcode" type="text" required/>
+          </div>
+        </div>
+        <div className="fields">
+          <div className="eight wide field">
+            <label>Phone Number</label>
+            <input name="phone" type="text" required/>
+          </div>
+          <div className="eight wide field">
+            <label>Email</label>
+            <input name="email" type="text" required/>
+          </div>
+        </div>
+        <div className="ui nine wide column centered aligned row">
+          <input type="submit" value="Submit Customer" className="massive ui positive button"/>
+        </div>
       </div>
     </form>
   )
@@ -239,12 +263,18 @@ const CreateCustomer = () => {
 
 const CustomerPage = () => {
   const {customerPage} = store.getState()
+  const handleClick = (event) => {
+    const value = event.target.getAttribute('name')
+    if (value === 'create-customer') {
+      store.dispatch({type: 'CREATE_CUSTOMER'})
+    }
+  }
   if (!customerPage) {
     return null
   }
   return (
     <div>
-      <div className="main-button">Create Customer</div>
+      <div name="create-customer" className="main-button" onClick={handleClick}>Create Customer</div>
     </div>
   )
 }
@@ -284,7 +314,7 @@ const SearchItems = () => {
     store.dispatch({type: 'TERM_UPDATED', value})
   }
   return (
-      <div className="ui form centered grid">
+      <div id="search-items" className="ui form centered grid">
         <div className="field column nine wide inventory-properties">
           <label className="inventory-property">Search Inventory</label>
           <div id="search-inventory-container" className="ui icon input">
@@ -338,15 +368,15 @@ const CreateItem = () => {
     : <form id="create-item" className="ui form centered grid add-inventory" onSubmit={handleSubmit}>
         <div className="field column nine wide inventory-properties">
           <label className="inventory-property">Item SKU</label>
-          <input name="sku" type="text" className="inventory-value" required onChange={handleChange}/>
+          <input name="sku" type="text" required onChange={handleChange}/>
         </div>
         <div className="field column nine wide inventory-properties">
           <label className="inventory-property">Description</label>
-          <input name="description" type="text" className="inventory-value" required onChange={handleChange}/>
+          <input name="description" type="text" required onChange={handleChange}/>
         </div>
         <div className="field column nine wide inventory-properties">
           <label className="inventory-property">Price</label>
-          <input name="price"  type="text" className="inventory-value" required onChange={handleChange}/>
+          <input name="price"  type="text" required onChange={handleChange}/>
         </div>
         <div className="ui column nine wide centered aligned">
           <input type="submit" value="Submit Item" id="submit-item" className="massive ui positive button"/>
@@ -378,6 +408,7 @@ const redraw = () => {
       </div>
       <CreateItem/>
       <SearchItems/>
+      <CreateCustomer/>
     </div>,
     document.getElementById('root')
   )
