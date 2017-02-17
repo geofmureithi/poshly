@@ -46,6 +46,8 @@ td {
 #create-item .field>label,
 #create-item .field>input,
 #search-items .field>label,
+#submit-customer .field>label,
+#submit-customer .field>input,
 #search-inventory-bar {
   font-family: 'Quicksand', sans-serif;
   font-weight: normal;
@@ -53,13 +55,24 @@ td {
 }
 #create-item .field>input,
 #search-items .field>label,
+#submit-customer .field>label,
+#submit-customer-button,
 #search-inventory-bar {
   padding: 10px;
   margin-top: 10px;
   border: none;
 }
+
+#submit-customer .field>input {
+  padding: 10px;
+  border: none;
+}
 #search-inventory-bar {
   margin-bottom: 30px;
+}
+#submit-customer-button {
+  text-align: center;
+  margin-top: 30px;
 }
 .ui.positive.button {
   font-family: 'Quicksand', sans-serif;

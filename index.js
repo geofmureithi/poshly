@@ -208,52 +208,61 @@ const HomePage = () => {
 }
 const CreateCustomer = () => {
   const {createCustomer} = store.getState()
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    store.dispatch(addCustomer)
+  }
+  const handleChange = (event) => {
+    const value = event.target.value
+    const field = event.target.getAttribute('name')
+    store.dispatch({type: 'CUSTOMER_ADDED', value, field})
+  }
   if (!createCustomer) {
     return null
   }
   return (
-    <form id="submit-customer" className="ui form grid centered">
+    <form id="submit-customer" className="ui form grid centered" onSubmit={handleSubmit}>
       <div className="column nine wide centered">
         <div className="field">
           <label>Name</label>
           <div className="two fields">
             <div className="field">
-              <input name="first-name" type="text" placeholder="First Name" required/>
+              <input name="first-name" type="text" placeholder="First Name" onChange={handleChange} required/>
             </div>
             <div className="field">
-              <input name="last-name" type="text" placeholder="Last Name" required/>
+              <input name="last-name" type="text" placeholder="Last Name" onChange={handleChange} required/>
             </div>
           </div>
         </div>
         <div className="field">
           <label>Address</label>
-          <input name="street-address" type="text" required/>
+          <input name="street-address" type="text" onChange={handleChange} required/>
         </div>
         <div className="fields">
           <div className="eight wide field">
             <label>City</label>
-            <input name="city" type="text" required/>
+            <input name="city" type="text" onChange={handleChange} required/>
           </div>
           <div className="four wide field">
             <label>State</label>
-            <input name="state" type="text" required/>
+            <input name="state" type="text" onChange={handleChange} required/>
           </div>
           <div className="four wide field">
             <label>Zipcode</label>
-            <input name="zipcode" type="text" required/>
+            <input name="zipcode" type="text" onChange={handleChange} required/>
           </div>
         </div>
         <div className="fields">
           <div className="eight wide field">
             <label>Phone Number</label>
-            <input name="phone" type="text" required/>
+            <input name="phone" type="text" onChange={handleChange} required/>
           </div>
           <div className="eight wide field">
             <label>Email</label>
-            <input name="email" type="text" required/>
+            <input name="email" type="text" onChange={handleChange} required/>
           </div>
         </div>
-        <div className="ui nine wide column centered aligned row">
+        <div id="submit-customer-button">
           <input type="submit" value="Submit Customer" className="massive ui positive button"/>
         </div>
       </div>
