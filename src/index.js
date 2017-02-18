@@ -1,7 +1,9 @@
 const React = require('react')
 const {render} = require('react-dom')
-const {fetchItems} = require('./actions.js')
+const {Provider} = require('react-redux')
+const {viewUpdated} = require('./actions.js')
 const {store} = require('./store.js')
+const View = require('./view')
 
 const addItems = (dispatch) => {
   const itemForm = store.getState().itemForm
@@ -33,26 +35,6 @@ const addCustomer = (dispatch) => {
   })
 }
 
-const HomePage = () => {
-  const {homePage} = store.getState()
-  const handleClick = (event) => {
-    const value = event.target.getAttribute('name')
-    if (value === "inventory") {
-      store.dispatch({type: "INVENTORY"})
-    } else if (value === "customers") {
-      store.dispatch({type: "CUSTOMERS"})
-    }
-  }
-  return (
-    !homePage
-    ? null
-    : <div>
-        <div name="inventory" className="main-button" onClick={handleClick}>Inventory</div>
-        <div></div>
-        <div name="customers" className="main-button" onClick={handleClick}>Customers</div>
-      </div>
-  )
-}
 const CreateCustomer = () => {
   const {createCustomer} = store.getState()
   const handleSubmit = (event) => {
@@ -117,46 +99,6 @@ const CreateCustomer = () => {
   )
 }
 
-const CustomerPage = () => {
-  const {customerPage} = store.getState()
-  const handleClick = (event) => {
-    const value = event.target.getAttribute('name')
-    if (value === 'create-customer') {
-      store.dispatch({type: 'CREATE_CUSTOMER'})
-    }
-  }
-  if (!customerPage) {
-    return null
-  }
-  return (
-    <div>
-      <div name="create-customer" className="main-button" onClick={handleClick}>Create Customer</div>
-    </div>
-  )
-}
-
-
-const InventoryPage = () => {
-  const {inventoryPage} = store.getState()
-  const handleClick = (event) => {
-    const value = event.target.getAttribute('name')
-    if (value === 'create-item') {
-      store.dispatch({type: 'CREATE_ITEM'})
-    } else if (value === 'search-items') {
-      store.dispatch(fetchItems)
-    }
-  }
-  return (
-    !inventoryPage
-    ? null
-    : <div>
-        <div name="create-item" className="main-button" onClick={handleClick}>Create Item</div>
-        <div></div>
-        <div name="search-items" className="main-button" onClick={handleClick}>Search Items</div>
-      </div>
-  )
-}
-
 const SearchItems = () => {
   const {searchItems, inventoryItems, term} = store.getState()
   if (!searchItems) {
@@ -207,69 +149,21 @@ const SearchItems = () => {
   )
 }
 
-const CreateItem = () => {
-  const {createItem} = store.getState()
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    store.dispatch(addItems)
-  }
-  const handleChange = (event) => {
-    const value = event.target.value
-    const field = event.target.getAttribute('name')
-    store.dispatch({type: 'FORM_UPDATED', value, field})
-  }
-  return (
-    !createItem
-    ? null
-    : <form id="create-item" className="ui form centered grid add-inventory" onSubmit={handleSubmit}>
-        <div className="field column nine wide inventory-properties">
-          <label className="inventory-property">Item SKU</label>
-          <input name="sku" type="text" required onChange={handleChange}/>
-        </div>
-        <div className="field column nine wide inventory-properties">
-          <label className="inventory-property">Description</label>
-          <input name="description" type="text" required onChange={handleChange}/>
-        </div>
-        <div className="field column nine wide inventory-properties">
-          <label className="inventory-property">Price</label>
-          <input name="price"  type="text" required onChange={handleChange}/>
-        </div>
-        <div className="ui column nine wide centered aligned">
-          <input type="submit" value="Submit Item" id="submit-item" className="massive ui positive button"/>
-        </div>
-      </form>
-  )
-}
-
 const Header = () => {
-  const handleClick = (event) => {
-    const value = event.target.getAttribute('name')
-    if (value === 'homeButton') {
-      store.dispatch({type: 'HOME_PAGE'})
-    }
-  }
+  const handleClick = () => store.dispatch(viewUpdated('home'))
   return (
     <div name="homeButton" className="header" onClick={handleClick}>POSHLY</div>
   )
 }
 
-const redraw = () => {
-  render(
+render(
+  <Provider store={store}>
     <div className="container">
       <Header/>
-      <div className="home">
-        <HomePage/>
-        <InventoryPage/>
-        <CustomerPage/>
+      <div className='home'>
+        <View/>
       </div>
-      <CreateItem/>
-      <SearchItems/>
-      <CreateCustomer/>
-    </div>,
-    document.getElementById('root')
-  )
-}
-
-store.subscribe(redraw)
-
-redraw()
+    </div>
+  </Provider>,
+  document.getElementById('root')
+)

@@ -12,4 +12,8 @@ const fetchItems = (dispatch) => {
   })
 }
 
-module.exports = {fetchItems}
+const viewUpdated = (view) => {
+  return {type: 'VIEW_UPDATED', view}
+}
+
+module.exports = {fetchItems, viewUpdated}
