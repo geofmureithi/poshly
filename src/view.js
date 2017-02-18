@@ -5,6 +5,7 @@ const {fetchItems} = require('./actions')
 const HomePage = require('./home-page')
 const InventoryPage = require('./inventory-page')
 const CreateItem = require('./create-items')
+const SearchItems = require('./search-items')
 
 const View = ({currentView}) => {
   switch (currentView) {
@@ -14,6 +15,8 @@ const View = ({currentView}) => {
       return <CustomerPage/>
     case 'createItem':
       return <CreateItem/>
+    case 'searchItems':
+      return <SearchItems/>
     default:
       return <HomePage/>
   }

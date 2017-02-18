@@ -10,7 +10,7 @@ const fetchItems = (dispatch) => {
       return response.json()
   }).then((items) => {
     dispatch(itemsLoaded(items))
-    dispatch({type: 'SEARCH_ITEMS'})
+    dispatch(viewUpdated('searchItems'))
   })
 }
 

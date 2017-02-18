@@ -84,58 +84,11 @@ const CreateCustomer = () => {
   )
 }
 
-const SearchItems = () => {
-  const {searchItems, inventoryItems, term} = store.getState()
-  if (!searchItems) {
-    return null
-  }
-  const matches = inventoryItems.filter(item => {
-    return item.description.toLowerCase().indexOf(term.toLowerCase()) > -1 || item.sku.indexOf(term) > -1
-  })
-  const handleChange = event => {
-    const value = event.target.value
-    store.dispatch({type: 'TERM_UPDATED', value})
-  }
-  return (
-      <div id="search-items" className="ui form centered grid">
-        <div className="field column nine wide inventory-properties">
-          <label className="inventory-property">Search Inventory</label>
-          <div id="search-inventory-container" className="ui icon input">
-            <input id="search-inventory-bar" className="prompt" type="text" placeholder="enter description or SKU" onChange={handleChange}/>
-            <i className="search icon"></i>
-          </div>
-        </div>
-        <div id="table-scroll" className="column fourteen wide">
-          <table id="inventory-table" className="ui striped table">
-            <thead>
-              <tr>
-                <th className="table-number">#</th>
-                <th>SKU</th>
-                <th>Description</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody id="table-body">
-              {matches.map((item, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{item.sku}</td>
-                    <td>{item.description}</td>
-                    <td><span>$</span>{item.price}</td>
-                  </tr>
-                  )
-               })
-            }
-            </tbody>
-          </table>
-        </div>
-      </div>
-  )
-}
-
 const Header = () => {
-  const handleClick = () => store.dispatch(viewUpdated('home'))
+  const handleClick = () => {
+    store.dispatch(viewUpdated('home'))
+    store.dispatch({type: 'HOME_PAGE'})
+  }
   return (
     <div name="homeButton" className="header" onClick={handleClick}>POSHLY</div>
   )

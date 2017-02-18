@@ -27,12 +27,13 @@ const customerForm = (state = {}, action) => {
   }
 }
 
-const term = (state = '', action) => {
+const currentView = (state = 'home', action) => {
   switch (action.type) {
-    case 'TERM_UPDATED':
-      return action.value
+    case 'VIEW_UPDATED':
+      return action.view
     default:
       return state
+
   }
 }
 
@@ -60,30 +61,16 @@ const itemForm = (state = {}, action) => {
   }
 }
 
-const searchItems = (state = false, action) => {
+const term = (state = '', action) => {
   switch (action.type) {
-    case 'SEARCH_ITEMS':
-      return true
-    case 'INVENTORY':
-      return false
-    case 'HOME_PAGE':
-      return false
+    case 'TERM_UPDATED':
+      return action.value
     default:
       return state
   }
 }
 
-const currentView = (state = 'home', action) => {
-  switch (action.type) {
-    case 'VIEW_UPDATED':
-      return action.view
-    default:
-      return state
-
-  }
-}
-
-const reducer = combineReducers({ currentView, createCustomer, customerForm, term, inventoryItems, itemForm, searchItems})
+const reducer = combineReducers({createCustomer, customerForm, currentView, inventoryItems, itemForm, term})
 
 const store = createStore(reducer, applyMiddleware(thunk))
 
