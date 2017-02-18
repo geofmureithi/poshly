@@ -60,19 +60,6 @@ const itemForm = (state = {}, action) => {
   }
 }
 
-const createItem = (state = false, action) => {
-  switch (action.type) {
-    case 'CREATE_ITEM':
-      return true
-    case 'SUBMIT_ITEM':
-      return false
-    case 'HOME_PAGE':
-      return false
-    default:
-      return state
-  }
-}
-
 const searchItems = (state = false, action) => {
   switch (action.type) {
     case 'SEARCH_ITEMS':
@@ -96,7 +83,7 @@ const currentView = (state = 'home', action) => {
   }
 }
 
-const reducer = combineReducers({ currentView, createCustomer, customerForm, term, inventoryItems, itemForm, createItem, searchItems})
+const reducer = combineReducers({ currentView, createCustomer, customerForm, term, inventoryItems, itemForm, searchItems})
 
 const store = createStore(reducer, applyMiddleware(thunk))
 

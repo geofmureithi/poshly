@@ -5,21 +5,6 @@ const {viewUpdated} = require('./actions.js')
 const {store} = require('./store.js')
 const View = require('./view')
 
-const addItems = (dispatch) => {
-  const itemForm = store.getState().itemForm
-  fetch('/inventory-items', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(
-      itemForm
-    )
-  }).then(() => {
-    dispatch({type: 'SUBMIT_ITEM'})
-  })
-}
-
 const addCustomer = (dispatch) => {
   const customerForm = store.getState().customerForm
   fetch('/customers', {

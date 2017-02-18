@@ -1,5 +1,6 @@
 const React = require('react')
 const {connect} = require('react-redux')
+const {addItems} = require('./actions')
 
 const CreateItem = ({handleSubmit, handleChange}) => {
   return (

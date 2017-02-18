@@ -1,8 +1,10 @@
 const React = require('react')
 const {connect} = require('react-redux')
-const HomePage = require('./home-page')
 const {store} = require('./store')
 const {fetchItems} = require('./actions')
+const HomePage = require('./home-page')
+const InventoryPage = require('./inventory-page')
+const CreateItem = require('./create-items')
 
 const View = ({currentView}) => {
   switch (currentView) {
@@ -10,27 +12,11 @@ const View = ({currentView}) => {
       return <InventoryPage/>
     case 'customerPage':
       return <CustomerPage/>
+    case 'createItem':
+      return <CreateItem/>
     default:
       return <HomePage/>
   }
-}
-
-const InventoryPage = () => {
-  const handleClick = (event) => {
-    const value = event.target.getAttribute('name')
-    if (value === 'create-item') {
-      store.dispatch({type: 'CREATE_ITEM'})
-    } else if (value === 'search-items') {
-      store.dispatch(fetchItems)
-    }
-  }
-  return (
-      <div>
-        <div name="create-item" className="main-button" onClick={handleClick}>Create Item</div>
-        <div></div>
-        <div name="search-items" className="main-button" onClick={handleClick}>Search Items</div>
-      </div>
-  )
 }
 
 const CustomerPage = () => {

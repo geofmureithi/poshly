@@ -1,6 +1,6 @@
 const React = require('react')
 const {connect} = require('react-redux')
-const {viewUpdated} = require('./actions.js')
+const {viewUpdated} = require('./actions')
 
 const HomePage = ({handleInventoryClick, handleCustomerClick}) => {
   return (
