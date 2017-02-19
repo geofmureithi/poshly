@@ -47,12 +47,11 @@ const fetchCustomers = (dispatch) => {
 
 const fetchItems = (dispatch) => {
   fetch('/inventory-items')
-    .then((response) => {
-      return response.json()
-  }).then((items) => {
-    dispatch(itemsLoaded(items))
-    dispatch(viewUpdated('searchItems'))
-  })
+    .then((response) => response.json())
+    .then((items) => {
+      dispatch(itemsLoaded(items))
+      dispatch(viewUpdated('searchItems'))
+    })
 }
 
 const itemsLoaded = (items) => {

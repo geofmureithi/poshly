@@ -1,6 +1,6 @@
 const React = require('react')
 const {connect} = require('react-redux')
-const {viewUpdated, fetchItems} = require('./actions')
+const {fetchItems, viewUpdated} = require('./actions')
 
 const InventoryPage = ({handleCreateItemClick, handleSearchItemsClick}) => {
   return (

@@ -48,7 +48,8 @@ td {
 #search-items .field>label,
 #submit-customer .field>label,
 #submit-customer .field>input,
-#search-inventory-bar {
+#search-inventory-bar,
+#serach-customer-bar {
   font-family: 'Quicksand', sans-serif;
   font-weight: normal;
   font-size: 30px;
@@ -57,7 +58,8 @@ td {
 #search-items .field>label,
 #submit-customer .field>label,
 #submit-customer-button,
-#search-inventory-bar {
+#search-inventory-bar,
+#search-customer-bar {
   padding: 10px;
   margin-top: 10px;
   border: none;
@@ -67,7 +69,8 @@ td {
   padding: 10px;
   border: none;
 }
-#search-inventory-bar {
+#search-inventory-bar,
+#search-customer-bar {
   margin-bottom: 30px;
 }
 #submit-customer-button {
@@ -80,15 +83,18 @@ td {
   font-size: 30px;
   padding: 20px;
 }
-#inventory-table {
+#inventory-table,
+#customer-table {
   font-family: 'Quicksand', sans-serif;
   font-weight: normal;
   font-size: 30px;
 }
-#table-body tr td:first-child {
+#table-body,
+#customer-table-body tr td:first-child {
   font-weight: bold;
 }
-#table-scroll {
+#table-scroll,
+#customer-table-scroll {
   overflow-y: auto;
   white-space: nowrap;
   height: 1000px;

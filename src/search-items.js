@@ -43,7 +43,7 @@ const mapStateToProps = ({inventoryItems, term}) => {
   return {
     matches: inventoryItems.filter(item => {
       return item.description.toLowerCase().indexOf(term.toLowerCase()) > -1 || item.sku.indexOf(term) > -1
-    }),
+    })
   }
 }
 
