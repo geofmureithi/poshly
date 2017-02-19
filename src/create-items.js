@@ -1,6 +1,6 @@
 const React = require('react')
 const {connect} = require('react-redux')
-const {addItems} = require('./actions')
+const {createItem} = require('./actions')
 
 const CreateItem = ({handleSubmit, handleChange}) => {
   return (
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handleSubmit: (event) => {
       event.preventDefault()
-      dispatch(addItems)
+      dispatch(createItem)
     },
     handleChange: (event) => {
       const value = event.target.value

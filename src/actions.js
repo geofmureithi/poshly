@@ -14,7 +14,7 @@ const fetchItems = (dispatch) => {
   })
 }
 
-const addItems = (dispatch) => {
+const createItem = (dispatch) => {
   const itemForm = store.getState().itemForm
   fetch('/inventory-items', {
     method: 'POST',
@@ -30,8 +30,24 @@ const addItems = (dispatch) => {
   })
 }
 
+const createCustomer = (dispatch) => {
+  const customerForm = store.getState().customerForm
+  fetch('/customers', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(
+      customerForm
+    )
+  }).then(() => {
+    dispatch({type: 'CUSTOMER_ADDED'})
+    dispatch(viewUpdated('home'))
+  })
+}
+
 const viewUpdated = (view) => {
   return {type: 'VIEW_UPDATED', view}
 }
 
-module.exports = {fetchItems, addItems, viewUpdated}
+module.exports = {fetchItems, createItem, viewUpdated, createCustomer}
