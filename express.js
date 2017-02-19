@@ -45,6 +45,13 @@ const createApp = (db) => {
       .catch((err) => next(err))
   })
 
+  app.get('/customers', (req, res, next) => {
+    customerCollection
+      .findAll()
+      .then((items) => res.json(items))
+      .catch((err) => next(err))
+  })
+
   app.post('/customers', (req, res, next) => {
     customerCollection
       .create(req.body)

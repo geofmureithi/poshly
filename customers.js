@@ -9,7 +9,10 @@ const customers = (db) => {
     })
     return customerCollection.insert(customer).then(() => customer)
   }
-  return {create}
+  const findAll = () => {
+    return customerCollection.find().sort({lastName: 1}).toArray()
+  }
+  return {create, findAll}
 }
 
 module.exports = {customers}

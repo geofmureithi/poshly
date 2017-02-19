@@ -7,7 +7,17 @@ const currentView = (state = 'home', action) => {
       return action.view
     default:
       return state
+  }
+}
 
+const customerCollection = (state = [], action) => {
+  switch (action.type) {
+    case 'CUSTOMERS_LOADED':
+      return state.concat(action.customers)
+    case 'HOME_PAGE':
+      return []
+    default:
+      return state
   }
 }
 
@@ -59,6 +69,7 @@ const term = (state = '', action) => {
 
 const reducer = combineReducers({
   currentView,
+  customerCollection,
   customerForm,
   inventoryItems,
   itemForm,
