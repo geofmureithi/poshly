@@ -1,6 +1,16 @@
 const {createStore, applyMiddleware, combineReducers} = require('redux')
 const thunk = require('redux-thunk').default
 
+const currentView = (state = 'home', action) => {
+  switch (action.type) {
+    case 'VIEW_UPDATED':
+      return action.view
+    default:
+      return state
+
+  }
+}
+
 const customerForm = (state = {}, action) => {
   switch (action.type) {
     case 'CUSTOMER_FORM_UPDATED':
@@ -11,16 +21,6 @@ const customerForm = (state = {}, action) => {
       return {}
     default:
       return state
-  }
-}
-
-const currentView = (state = 'home', action) => {
-  switch (action.type) {
-    case 'VIEW_UPDATED':
-      return action.view
-    default:
-      return state
-
   }
 }
 
@@ -57,7 +57,13 @@ const term = (state = '', action) => {
   }
 }
 
-const reducer = combineReducers({customerForm, currentView, inventoryItems, itemForm, term})
+const reducer = combineReducers({
+  currentView,
+  customerForm,
+  inventoryItems,
+  itemForm,
+  term
+})
 
 const store = createStore(reducer, applyMiddleware(thunk))
 
