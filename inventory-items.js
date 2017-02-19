@@ -2,9 +2,6 @@ const uuid = require('uuid/v4')
 
 const inventoryItems = (db) => {
   const inventory = db.collection('inventory')
-  const findAll = () => {
-    return inventory.find().sort({description: 1}).toArray()
-  }
   const create = (body) => {
     const id = uuid()
     const item = Object.assign({}, body, {
@@ -12,7 +9,9 @@ const inventoryItems = (db) => {
     })
     return inventory.insert(item).then(() => item)
   }
-
+  const findAll = () => {
+    return inventory.find().sort({description: 1}).toArray()
+  }
   return {findAll, create}
 }
 
