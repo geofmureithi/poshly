@@ -31,6 +31,20 @@ const createApp = (db) => {
 
   app.use(express.static('public'))
 
+  app.get('/customers', (req, res, next) => {
+    customerCollection
+      .findAll()
+      .then((items) => res.json(items))
+      .catch((err) => next(err))
+  })
+
+  app.post('/customers', (req, res, next) => {
+    customerCollection
+      .create(req.body)
+      .then((customer) => res.json(customer))
+      .catch((err) => next(err))
+  })
+
   app.get('/inventory-items', (req, res, next) => {
     inventory
       .findAll()
@@ -45,19 +59,13 @@ const createApp = (db) => {
       .catch((err) => next(err))
   })
 
-  app.get('/customers', (req, res, next) => {
-    customerCollection
-      .findAll()
-      .then((items) => res.json(items))
+  app.post('/invoices', (req, res, next) => {
+    invoiceCollection
+      .create(req.body)
+      .then((invoice) => res.json(invoice))
       .catch((err) => next(err))
   })
 
-  app.post('/customers', (req, res, next) => {
-    customerCollection
-      .create(req.body)
-      .then((customer) => res.json(customer))
-      .catch((err) => next(err))
-  })
   // eslint-disable-next-line
   app.use((err, req, res, next) => {
     console.log(err)
