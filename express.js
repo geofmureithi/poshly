@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const {MongoClient} = require('mongodb')
 const {inventoryItems} = require('./inventory-items')
 const {customers} = require('./customers')
+const {invoiceCollection} = require('./invoices')
 
 const url = 'mongodb://localhost:27017/poshly'
 
@@ -24,6 +25,7 @@ MongoClient.connect(url, (err, db) => {
 const createApp = (db) => {
   const inventory = inventoryItems(db)
   const customerCollection = customers(db)
+  const invoices = invoiceCollection(db)
 
   const app = express()
 
@@ -60,7 +62,7 @@ const createApp = (db) => {
   })
 
   app.post('/invoices', (req, res, next) => {
-    invoiceCollection
+    invoices
       .create(req.body)
       .then((invoice) => res.json(invoice))
       .catch((err) => next(err))
