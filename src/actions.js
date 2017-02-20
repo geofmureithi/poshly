@@ -16,6 +16,22 @@ const createCustomer = (dispatch) => {
   })
 }
 
+const createInvoice = (dispatch) => {
+  const invoiceForm = store.getState().invoiceForm
+  fetch('/invoices', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(
+      invoiceForm
+    )
+  }).then (() => {
+    dispatch({type: 'INVOICE_ADDED'})
+    dispatch(viewUpdated('home'))
+  })
+}
+
 const createItem = (dispatch) => {
   const itemForm = store.getState().itemForm
   fetch('/inventory-items', {
