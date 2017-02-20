@@ -2,9 +2,11 @@ const React = require('react')
 const {connect} = require('react-redux')
 const {viewUpdated} = require('./actions')
 
-const HomePage = ({handleInventoryClick, handleCustomerClick}) => {
+const HomePage = ({handleSaleClick, handleInventoryClick, handleCustomerClick}) => {
   return (
     <div>
+      <div className="main-button" onClick={handleSaleClick}>Sales</div>
+      <div></div>
       <div className="main-button" onClick={handleInventoryClick}>Inventory</div>
       <div></div>
       <div className="main-button" onClick={handleCustomerClick}>Customers</div>
@@ -14,6 +16,7 @@ const HomePage = ({handleInventoryClick, handleCustomerClick}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    handleSaleClick: () => dispatch(viewUpdated('salePage')),
     handleInventoryClick: () => dispatch(viewUpdated('inventoryPage')),
     handleCustomerClick: () => dispatch(viewUpdated('customerPage'))
   }

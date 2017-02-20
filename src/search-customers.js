@@ -59,7 +59,7 @@ const mapStateToProps = ({customerCollection, term}) => {
         customer.city.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
         customer.state.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
         customer.zipcode.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
-        customer.phone.replace(/[^0-9#]/g, '').indexOf(term.replace(/[^0-9#]/g, '')) > -1 ||
+        customer.phone.replace(/[^0-9#]/, '').indexOf(term.replace(/[^0-9#]/, '')) > -1 ||
         customer.email.toLowerCase().indexOf(term.toLowerCase()) > -1
       )
     })

@@ -8,6 +8,7 @@ const CreateItem = require('./create-items')
 const SearchItems = require('./search-items')
 const CreateCustomer = require('./create-customer')
 const CustomerPage = require('./customer-page')
+const SalePage = require('./salePage')
 const SearchCustomers = require('./search-customers')
 
 const View = ({currentView}) => {
@@ -22,6 +23,8 @@ const View = ({currentView}) => {
       return <SearchItems/>
     case 'createCustomer':
       return <CreateCustomer/>
+    case 'salePage':
+      return <SalePage/>
     case 'searchCustomers':
       return <SearchCustomers/>
     default:
