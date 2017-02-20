@@ -1,13 +1,13 @@
 const React = require('react')
 const {connect} = require('react-redux')
 
-const SearchCustomers = ({customerCollection}) => {
+const SearchCustomers = ({matches, handleChange}) => {
   return (
     <div id="search-items" className="ui form centered grid">
       <div className="field column nine wide inventory-properties">
         <label className="inventory-property">Search Customers</label>
         <div className="ui icon input">
-          <input id="search-customer-bar" className="prompt" type="text" placeholder="enter first or last name"/>
+          <input id="search-customer-bar" className="prompt" type="text" placeholder="enter keyword, e.g. Last Name" onChange={handleChange}/>
           <i className="search icon"></i>
         </div>
       </div>
@@ -27,7 +27,7 @@ const SearchCustomers = ({customerCollection}) => {
             </tr>
           </thead>
           <tbody id="customer-table-body">
-            {customerCollection.map((customer, index) => {
+            {matches.map((customer, index) => {
               return (
                 <tr key={index}>
                   <td>{index + 1}</td>
@@ -49,11 +49,31 @@ const SearchCustomers = ({customerCollection}) => {
   )
 }
 
-const mapStateToProps = ({customerCollection}) => {
+const mapStateToProps = ({customerCollection, term}) => {
   return {
-    customerCollection
+    matches: customerCollection.filter(customer => {
+      return(
+        customer.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
+        customer.lastName.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
+        customer.streetAddress.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
+        customer.city.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
+        customer.state.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
+        customer.zipcode.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
+        customer.phone.replace(/[^0-9#]/g, '').indexOf(term.replace(/[^0-9#]/g, '')) > -1 ||
+        customer.email.toLowerCase().indexOf(term.toLowerCase()) > -1
+      )
+    })
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleChange: event => {
+      const value = event.target.value
+      dispatch({type: 'TERM_UPDATED', value})
+    }
   }
 }
 
 
-module.exports = connect(mapStateToProps)(SearchCustomers)
+module.exports = connect(mapStateToProps, mapDispatchToProps)(SearchCustomers)
