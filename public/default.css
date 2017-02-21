@@ -77,6 +77,9 @@ td {
   text-align: center;
   margin-top: 30px;
 }
+#submit-sale-button {
+  margin-top: 10px;
+}
 .ui.positive.button {
   font-family: 'Quicksand', sans-serif;
   font-weight: bold;
@@ -84,17 +87,22 @@ td {
   padding: 20px;
 }
 #inventory-table,
-#customer-table {
+#customer-table,
+#invoice-customer-table,
+#invoice-item-table {
   font-family: 'Quicksand', sans-serif;
   font-weight: normal;
   font-size: 30px;
 }
 #table-body tr td:first-child,
-#customer-table-body tr td:first-child {
+#customer-table-body tr td:first-child,
+#invoice-item-table-body tr td:first-child {
   font-weight: bold;
 }
 #table-scroll,
-#customer-table-scroll {
+#customer-table-scroll,
+#invoice-table-scroll,
+#invoice-item-table-scroll {
   overflow-x: auto;
   overflow-y: auto;
   white-space: nowrap;

@@ -8,7 +8,7 @@ const {invoiceCollection} = require('./invoices')
 
 const url = 'mongodb://localhost:27017/poshly'
 
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
 MongoClient.connect(url, (err, db) => {
   if (err) {

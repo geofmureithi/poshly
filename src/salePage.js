@@ -1,5 +1,6 @@
 const React = require('react')
 const {connect} = require('react-redux')
+const {viewUpdated} = require('./actions')
 
 const SalePage = ({handleCreateSaleClick}) => {
   return (
@@ -11,7 +12,7 @@ const SalePage = ({handleCreateSaleClick}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleCreateSaleClick: () => dispatch()
+    handleCreateSaleClick: () => dispatch(viewUpdated('createSale'))
   }
 }
 

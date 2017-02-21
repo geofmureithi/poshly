@@ -5,6 +5,7 @@ const {fetchItems} = require('./actions')
 const HomePage = require('./home-page')
 const InventoryPage = require('./inventory-page')
 const CreateItem = require('./create-items')
+const CreateSale = require('./create-sale')
 const SearchItems = require('./search-items')
 const CreateCustomer = require('./create-customer')
 const CustomerPage = require('./customer-page')
@@ -19,6 +20,8 @@ const View = ({currentView}) => {
       return <CustomerPage/>
     case 'createItem':
       return <CreateItem/>
+    case 'createSale':
+      return <CreateSale/>
     case 'searchItems':
       return <SearchItems/>
     case 'createCustomer':
