@@ -74,8 +74,32 @@ const itemsLoaded = (items) => {
   return {type: 'ITEMS_LOADED', items}
 }
 
+const searchCustomers = (dispatch) => {
+  fetch('/customers')
+    .then((response) => response.json())
+    .then((customers) => {
+      dispatch(customersLoaded(customers))
+    })
+}
+
+const searchItems = (dispatch) => {
+  fetch('/inventory-items')
+    .then((response) => response.json())
+    .then((items) => {
+      dispatch(itemsLoaded(items))
+    })
+}
+
 const viewUpdated = (view) => {
   return {type: 'VIEW_UPDATED', view}
 }
 
-module.exports = {createCustomer, createItem, fetchCustomers, fetchItems, viewUpdated}
+module.exports = {
+  createCustomer,
+  createItem,
+  fetchCustomers,
+  fetchItems,
+  searchCustomers,
+  searchItems,
+  viewUpdated
+}

@@ -1,7 +1,5 @@
 const React = require('react')
 const {connect} = require('react-redux')
-const {store} = require('./store')
-const {fetchItems} = require('./actions')
 const HomePage = require('./home-page')
 const InventoryPage = require('./inventory-page')
 const CreateItem = require('./create-items')

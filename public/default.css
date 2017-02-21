@@ -80,6 +80,13 @@ td {
 #submit-sale-button {
   margin-top: 10px;
 }
+#invoice-customer-button,
+#invoice-item-button {
+  font-family: 'Quicksand', sans-serif;
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 24px;
+}
 .ui.positive.button {
   font-family: 'Quicksand', sans-serif;
   font-weight: bold;
@@ -101,10 +108,10 @@ td {
 }
 #table-scroll,
 #customer-table-scroll,
-#invoice-table-scroll,
-#invoice-item-table-scroll {
-  overflow-x: auto;
-  overflow-y: auto;
+#invoice-customer-scroll,
+#invoice-item-scroll {
+  overflow-x: scroll;
+  overflow-y: scroll;
   white-space: nowrap;
   max-height: 60vh;
   padding: 0;

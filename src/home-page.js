@@ -5,11 +5,11 @@ const {viewUpdated} = require('./actions')
 const HomePage = ({handleSaleClick, handleInventoryClick, handleCustomerClick}) => {
   return (
     <div>
-      <div className="main-button" onClick={handleSaleClick}>Sales</div>
-      <div></div>
       <div className="main-button" onClick={handleInventoryClick}>Inventory</div>
       <div></div>
       <div className="main-button" onClick={handleCustomerClick}>Customers</div>
+      <div></div>
+      <div className="main-button" onClick={handleSaleClick}>Sales</div>
     </div>
   )
 }
