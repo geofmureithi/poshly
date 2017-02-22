@@ -87,6 +87,10 @@ td {
   font-weight: bold;
   font-size: 24px;
 }
+#invoice-customer-input {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 24px;
+}
 .ui.positive.button {
   font-family: 'Quicksand', sans-serif;
   font-weight: bold;
@@ -108,12 +112,19 @@ td {
 }
 #table-scroll,
 #customer-table-scroll,
+#invoice-customer-scroll {
+  max-height: 60vh;
+}
+#invoice-item-scroll {
+  max-height: 20vh;
+}
+#table-scroll,
+#customer-table-scroll,
 #invoice-customer-scroll,
 #invoice-item-scroll {
-  overflow-x: scroll;
-  overflow-y: scroll;
+  overflow-x: auto;
+  overflow-y: auto;
   white-space: nowrap;
-  max-height: 60vh;
   padding: 0;
 }
 .table-number {

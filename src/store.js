@@ -56,6 +56,17 @@ const invoiceForm = (state = {}, action) => {
   }
 }
 
+const invoiceInput = (state = false, action) => {
+  switch (action.type) {
+    case 'INPUT_LOADED':
+      return true
+    case 'HOME_PAGE':
+      return false
+    default:
+      return state
+  }
+}
+
 const itemForm = (state = {}, action) => {
   switch (action.type) {
     case 'FORM_UPDATED':
@@ -64,6 +75,17 @@ const itemForm = (state = {}, action) => {
     })
     case 'SUBMIT_ITEM':
       return {}
+    default:
+      return state
+  }
+}
+
+const itemInput = (state = false, action) => {
+  switch (action.type) {
+    case 'ITEM_INPUT_LOADED':
+      return true
+    case 'HOME_PAGE':
+      return false
     default:
       return state
   }
@@ -83,7 +105,9 @@ const reducer = combineReducers({
   customerCollection,
   customerForm,
   inventoryItems,
+  invoiceInput,
   itemForm,
+  itemInput,
   term
 })
 

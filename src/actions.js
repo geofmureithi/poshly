@@ -79,6 +79,7 @@ const searchCustomers = (dispatch) => {
     .then((response) => response.json())
     .then((customers) => {
       dispatch(customersLoaded(customers))
+      dispatch({type: 'INPUT_LOADED'})
     })
 }
 
@@ -87,6 +88,7 @@ const searchItems = (dispatch) => {
     .then((response) => response.json())
     .then((items) => {
       dispatch(itemsLoaded(items))
+      dispatch({type: 'ITEM_INPUT_LOADED'})
     })
 }
 
