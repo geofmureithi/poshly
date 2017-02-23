@@ -2,7 +2,7 @@ const React = require('react')
 const {connect} = require('react-redux')
 const {searchCustomers, searchItems} = require('./actions')
 
-const CreateSale = ({handleSearchCustomersClick, handleSearchCustomerChange, handleSearchItemsClick, handleSelectCustomerClick, invoiceInput, itemInput, matches}) => {
+const CreateSale = ({customerMatches, handleSearchCustomersClick, handleSearchCustomerChange, handleSearchItemChange, handleSearchItemsClick, handleSelectCustomerClick, invoiceInput, itemInput, itemMatches}) => {
   return (
     <div id="invoice-items" className="ui form centered grid">
       <div className="column fourteen wide">
@@ -30,7 +30,7 @@ const CreateSale = ({handleSearchCustomersClick, handleSearchCustomerChange, han
               </tr>
             </thead>
             <tbody id="invoice-table-body">
-              {matches.map((customer, index) => {
+              {customerMatches.map((customer, index) => {
                 return (
                   <tr key={index} onClick={handleSelectCustomerClick}>
                     <td>{customer.firstName}</td>
@@ -54,7 +54,7 @@ const CreateSale = ({handleSearchCustomersClick, handleSearchCustomerChange, han
           !itemInput
           ? null
           : <div className="ui icon input">
-              <input id="invoice-customer-input" className="prompt" type="text" placeholder="enter details, e.g. SKU"/>
+              <input id="invoice-customer-input" className="prompt" type="text" placeholder="enter details, e.g. SKU" onChange={handleSearchItemChange}/>
               <i className="search icon"></i>
             </div>}
         <div id="invoice-item-scroll">
@@ -64,18 +64,20 @@ const CreateSale = ({handleSearchCustomersClick, handleSearchCustomerChange, han
                 <th className="table-number">#</th>
                 <th>SKU</th>
                 <th>Description</th>
-                <th>Quantity</th>
                 <th>Price</th>
               </tr>
             </thead>
             <tbody id="invoice-item-table-body">
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
+              {itemMatches.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{item.sku}</td>
+                    <td>{item.description}</td>
+                    <td>{item.price}</td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </div>
@@ -87,11 +89,11 @@ const CreateSale = ({handleSearchCustomersClick, handleSearchCustomerChange, han
   )
 }
 
-const mapStateToProps = ({customerCollection, invoiceInput, itemInput, term}) => {
+const mapStateToProps = ({customerCollection, inventoryItems, invoiceInput, itemInput, itemTerm, term}) => {
   return {
     invoiceInput,
     itemInput,
-    matches: customerCollection.filter(customer => {
+    customerMatches: customerCollection.filter(customer => {
       return(
         customer.firstName.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
         customer.lastName.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
@@ -101,6 +103,12 @@ const mapStateToProps = ({customerCollection, invoiceInput, itemInput, term}) =>
         customer.zipcode.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
         customer.phone.replace(/[^0-9#]/, '').indexOf(term.replace(/[^0-9#]/, '')) > -1 ||
         customer.email.toLowerCase().indexOf(term.toLowerCase()) > -1
+      )
+    }),
+    itemMatches: inventoryItems.filter(item => {
+      return (
+        item.description.toLowerCase().indexOf(itemTerm.toLowerCase()) > -1 ||
+        item.sku.indexOf(itemTerm) > -1
       )
     })
   }
@@ -118,6 +126,10 @@ const mapDispatchToProps = (dispatch) => {
       const value = event.target.innerHTML
       dispatch({type: 'TERM_UPDATED', value})
       dispatch({type: 'INPUT_CLOSED'})
+    },
+    handleSearchItemChange: event => {
+      const value = event.target.value
+      dispatch({type: 'ITEM_TERM_UPDATED', value})
     }
   }
 }

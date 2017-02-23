@@ -95,6 +95,15 @@ const itemInput = (state = false, action) => {
   }
 }
 
+const itemTerm = (state = '', action) => {
+  switch (action.type) {
+    case 'ITEM_TERM_UPDATED':
+      return action.value
+    default:
+      return state
+  }
+}
+
 const term = (state = '', action) => {
   switch (action.type) {
     case 'TERM_UPDATED':
@@ -114,6 +123,7 @@ const reducer = combineReducers({
   invoiceInput,
   itemForm,
   itemInput,
+  itemTerm,
   term
 })
 

@@ -112,11 +112,9 @@ td {
 }
 #table-scroll,
 #customer-table-scroll,
-#invoice-customer-scroll {
-  max-height: 60vh;
-}
+#invoice-customer-scroll,
 #invoice-item-scroll {
-  max-height: 20vh;
+  max-height: 60vh;
 }
 #table-scroll,
 #customer-table-scroll,
