@@ -78,6 +78,8 @@ const searchCustomers = (dispatch) => {
   fetch('/customers')
     .then((response) => response.json())
     .then((customers) => {
+      dispatch({type: 'TERM_CLEARED'})
+      dispatch({type: 'CUSTOMERS_REFRESHED'})
       dispatch(customersLoaded(customers))
       dispatch({type: 'INPUT_LOADED'})
     })

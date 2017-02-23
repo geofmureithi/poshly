@@ -115,8 +115,9 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({type: 'TERM_UPDATED', value})
     },
     handleSelectCustomerClick: event => {
-      const value = event.target
-      console.log(value)
+      const value = event.target.innerHTML
+      dispatch({type: 'TERM_UPDATED', value})
+      dispatch({type: 'INPUT_CLOSED'})
     }
   }
 }

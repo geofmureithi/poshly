@@ -16,6 +16,8 @@ const customerCollection = (state = [], action) => {
       return state.concat(action.customers)
     case 'HOME_PAGE':
       return []
+    case 'CUSTOMERS_REFRESHED':
+      return []
     default:
       return state
   }
@@ -62,6 +64,8 @@ const invoiceInput = (state = false, action) => {
       return true
     case 'HOME_PAGE':
       return false
+    case 'INPUT_CLOSED':
+      return false
     default:
       return state
   }
@@ -95,6 +99,8 @@ const term = (state = '', action) => {
   switch (action.type) {
     case 'TERM_UPDATED':
       return action.value
+    case 'TERM_CLEARED':
+      return ''
     default:
       return state
   }
