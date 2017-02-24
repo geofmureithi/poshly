@@ -14,3 +14,4 @@ Modern point of sale system
 - Express
 - Node.js
 - MongoDB
+- RESTful API
