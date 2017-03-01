@@ -10,43 +10,51 @@ const CreateSale = ({customerMatches, handleSearchCustomersClick, handleSearchCu
         {
           !invoiceInput
           ? null
-          : <div className="ui icon input">
-              <input id="invoice-customer-input" className="prompt" type="text" placeholder="enter details, e.g. Name" onChange={handleSearchCustomerChange}/>
-              <i className="search icon"></i>
+          : <div id="invoice-input">
+              <div id="sale-segment" className="ui segment">
+                <div className="field">
+                <label>Search Customers</label>
+                <div className="ui icon input">
+                  <input id="invoice-customer-input" className="prompt" type="text" placeholder="enter details, e.g. Name" onChange={handleSearchCustomerChange}/>
+                  <i className="search icon"></i>
+                </div>
+                </div>
+                <div id="invoice-customer-scroll">
+                  <table id="invoice-customer-table" className="ui striped table">
+                    <thead>
+                      <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Street Address</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zipcode</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                      </tr>
+                    </thead>
+                    <tbody id="invoice-table-body">
+                      {customerMatches.map((customer, index) => {
+                        return (
+                          <tr key={index} onClick={handleSelectCustomerClick}>
+                            <td>{customer.firstName}</td>
+                            <td>{customer.lastName}</td>
+                            <td>{customer.streetAddress}</td>
+                            <td>{customer.city}</td>
+                            <td>{customer.state}</td>
+                            <td>{customer.zipcode}</td>
+                            <td>{customer.phone}</td>
+                            <td>{customer.email}</td>
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
         }
-        <div id="invoice-customer-scroll">
-          <table id="invoice-customer-table" className="ui striped table">
-            <thead>
-              <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Street Address</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Zipcode</th>
-                <th>Phone</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody id="invoice-table-body">
-              {customerMatches.map((customer, index) => {
-                return (
-                  <tr key={index} onClick={handleSelectCustomerClick}>
-                    <td>{customer.firstName}</td>
-                    <td>{customer.lastName}</td>
-                    <td>{customer.streetAddress}</td>
-                    <td>{customer.city}</td>
-                    <td>{customer.state}</td>
-                    <td>{customer.zipcode}</td>
-                    <td>{customer.phone}</td>
-                    <td>{customer.email}</td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
+
       </div>
       <div className="column fourteen wide">
         <button id="invoice-item-button" className="large ui button" onClick={handleSearchItemsClick}>Select Product</button>

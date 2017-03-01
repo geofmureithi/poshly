@@ -7,6 +7,7 @@ body {
 }
 body {
   background-color: #f2f4f7;
+  position: relative;
 }
 .container {
   width: 100%;
@@ -127,4 +128,20 @@ td {
 }
 .table-number {
   font-weight: bold;
+}
+#invoice-input {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
+  background-color: rgba(0,0,0,0.5);
+}
+#sale-segment {
+  position: absolute;
+  top: 10rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
 }
