@@ -13,12 +13,12 @@ const CreateSale = ({customerMatches, handleSearchCustomersClick, handleSearchCu
           : <div id="invoice-input">
               <div id="sale-segment" className="ui segment">
                 <div className="field">
-                <label>Search Customers</label>
-                <div className="ui icon input">
-                  <input id="invoice-customer-input" className="prompt" type="text" placeholder="enter details, e.g. Name" onChange={handleSearchCustomerChange}/>
-                  <i className="search icon"></i>
-                </div>
-                </div>
+                    <label>Search Customers</label>
+                    <div className="ui icon input">
+                      <input id="invoice-customer-input" className="prompt" type="text" placeholder="enter keyword, e.g. Last Name" onChange={handleSearchCustomerChange}/>
+                      <i className="search icon"></i>
+                    </div>
+                  </div>
                 <div id="invoice-customer-scroll">
                   <table id="invoice-customer-table" className="ui striped table">
                     <thead>
