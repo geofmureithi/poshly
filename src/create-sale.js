@@ -4,23 +4,23 @@ const {searchCustomers, searchItems} = require('./actions')
 
 const CreateSale = ({customerMatches, handleSearchCustomersClick, handleSearchCustomerChange, handleSearchItemChange, handleSearchItemsClick, handleSelectCustomerClick, invoiceInput, itemInput, itemMatches}) => {
   return (
-    <div id="invoice-items" className="ui form centered grid">
+    <div className="ui medium text form centered grid">
       <div className="column fourteen wide">
         <button id="invoice-customer-button" className="large ui button" onClick={handleSearchCustomersClick}>Select Customer</button>
         {
           !invoiceInput
           ? null
-          : <div id="invoice-input">
+          : <div id="invoice-input" className="medium text">
               <div id="sale-segment" className="ui segment">
                 <div className="field">
                     <label>Search Customers</label>
                     <div className="ui icon input">
-                      <input id="invoice-customer-input" className="prompt" type="text" placeholder="enter keyword, e.g. Last Name" onChange={handleSearchCustomerChange}/>
+                      <input className="prompt" type="text" placeholder="enter keyword, e.g. Last Name" onChange={handleSearchCustomerChange}/>
                       <i className="search icon"></i>
                     </div>
                   </div>
                 <div id="invoice-customer-scroll">
-                  <table id="invoice-customer-table" className="ui striped table">
+                  <table className="ui striped table">
                     <thead>
                       <tr>
                         <th>First Name</th>
@@ -33,7 +33,7 @@ const CreateSale = ({customerMatches, handleSearchCustomersClick, handleSearchCu
                         <th>Email</th>
                       </tr>
                     </thead>
-                    <tbody id="invoice-table-body">
+                    <tbody>
                       {customerMatches.map((customer, index) => {
                         return (
                           <tr key={index} onClick={handleSelectCustomerClick}>
@@ -62,7 +62,7 @@ const CreateSale = ({customerMatches, handleSearchCustomersClick, handleSearchCu
           !itemInput
           ? null
           : <div className="ui icon input">
-              <input id="invoice-customer-input" className="prompt" type="text" placeholder="enter details, e.g. SKU" onChange={handleSearchItemChange}/>
+              <input className="prompt" type="text" placeholder="enter details, e.g. SKU" onChange={handleSearchItemChange}/>
               <i className="search icon"></i>
             </div>}
         <div id="invoice-item-scroll">

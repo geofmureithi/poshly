@@ -1,20 +1,26 @@
-/*@font-face {
-  font-family: 'Quicksand', sans-serif;
-}*/
 @font-face  {
     font-family: 'Quicksand';
-    src:url('themes/basic/assets/fonts/fontname.eot');
-    src:url('themes/basic/assets/fonts/fontname.eot?#') format('eot'),
-        url('themes/basic/assets/fonts/fontname.woff') format('woff');
+    src:url('themes/basic/assets/fonts/Quicksand.eot');
+    src:url('themes/basic/assets/fonts/Quicksand.eot?#') format('eot'),
+        url('themes/basic/assets/fonts/Quicksand.woff') format('woff');
+}
+.large.text {
+  font-size: 2.5rem;
+}
+.medium.text {
+  font-size: 2.2rem;
+}
+.large.ui.button {
+  font-size: 2rem;
 }
 html,
 body {
   padding: 0;
   margin: 0;
-  /*font-family: "Century Gothic", "AppleGothic";*/
   height: 100%;
 }
 body {
+  font-family: Quicksand;
   background-color: #f2f4f7;
   position: relative;
 }
@@ -37,32 +43,16 @@ body {
   margin-top: 60px;
   text-align: center;
 }
-.large.text {
-  font-size: 2.5rem;
-}
-/*.main-button {
-  font-family: 'Quicksand', sans-serif;
+.main-button {
   display: inline-block;
   width: 400px;
   padding: 30px;
-  font-size: 35px;
   background-color: white;
   margin-bottom: 30px;
-}*/
+}
 .ui.grid {
   margin: 0;
 }
-/*#create-item .field>label,
-#create-item .field>input,
-#search-items .field>label,
-#submit-customer .field>label,
-#submit-customer .field>input,
-#search-inventory-bar,
-#search-customer-bar {
-  font-family: 'Quicksand', sans-serif;
-  font-weight: normal;
-  font-size: 30px;
-}*/
 #create-item .field>input,
 #search-items .field>label,
 #submit-customer .field>label,
@@ -90,28 +80,13 @@ body {
 }
 #invoice-customer-button,
 #invoice-item-button {
-  font-family: 'Quicksand', sans-serif;
   margin-bottom: 30px;
   font-weight: bold;
-  font-size: 24px;
-}
-#invoice-customer-input {
-  font-family: 'Quicksand', sans-serif;
-  font-size: 24px;
 }
 .ui.positive.button {
-  font-family: 'Quicksand', sans-serif;
   font-weight: bold;
   font-size: 30px;
   padding: 20px;
-}
-#inventory-table,
-#customer-table,
-#invoice-customer-table,
-#invoice-item-table {
-  font-family: 'Quicksand', sans-serif;
-  font-weight: normal;
-  font-size: 30px;
 }
 #table-body tr td:first-child,
 #customer-table-body tr td:first-child,

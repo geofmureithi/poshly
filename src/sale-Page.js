@@ -5,7 +5,7 @@ const {viewUpdated} = require('./actions')
 const SalePage = ({handleCreateSaleClick}) => {
   return (
     <div>
-      <div className="main-button" onClick={handleCreateSaleClick}>Create Sale</div>
+      <div className="main-button large text" onClick={handleCreateSaleClick}>Create Sale</div>
     </div>
   )
 }

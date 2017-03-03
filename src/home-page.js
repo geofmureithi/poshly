@@ -7,9 +7,9 @@ const HomePage = ({handleSaleClick, handleInventoryClick, handleCustomerClick}) 
     <div>
       <div className="main-button large text" onClick={handleInventoryClick}>Inventory</div>
       <div></div>
-      <div className="main-button" onClick={handleCustomerClick}>Customers</div>
+      <div className="main-button large text" onClick={handleCustomerClick}>Customers</div>
       <div></div>
-      <div className="main-button" onClick={handleSaleClick}>Sales</div>
+      <div className="main-button large text" onClick={handleSaleClick}>Sales</div>
     </div>
   )
 }

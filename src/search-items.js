@@ -3,16 +3,16 @@ const {connect} = require('react-redux')
 
 const SearchItems = ({matches, handleChange}) => {
   return (
-    <div id="search-items" className="ui form centered grid">
-      <div className="field column nine wide inventory-properties">
-        <label className="inventory-property">Search Inventory</label>
-        <div id="search-inventory-container" className="ui icon input">
+    <div id="search-items" className="ui medium text form centered grid">
+      <div className="field column nine wide">
+        <label>Search Inventory</label>
+        <div className="ui icon input">
           <input id="search-inventory-bar" className="prompt" type="text" placeholder="enter description or SKU" onChange={handleChange}/>
           <i className="search icon"></i>
         </div>
       </div>
       <div id="table-scroll" className="column fourteen wide">
-        <table id="inventory-table" className="ui striped table">
+        <table className="ui striped table">
           <thead>
             <tr>
               <th className="table-number">#</th>

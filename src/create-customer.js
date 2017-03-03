@@ -4,7 +4,7 @@ const {createCustomer} = require('./actions')
 
 const CreateCustomer = ({handleSubmit, handleChange}) => {
   return (
-    <form id="submit-customer" className="ui form grid centered" onSubmit={handleSubmit}>
+    <form id="submit-customer" className="ui medium text form centered grid" onSubmit={handleSubmit}>
       <div className="column nine wide centered">
         <div className="field">
           <label>Name</label>

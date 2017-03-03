@@ -5,9 +5,9 @@ const {fetchItems, viewUpdated} = require('./actions')
 const InventoryPage = ({handleCreateItemClick, handleSearchItemsClick}) => {
   return (
     <div>
-      <div className="main-button" onClick={handleCreateItemClick}>Create Item</div>
+      <div className="main-button large text" onClick={handleCreateItemClick}>Create Item</div>
       <div></div>
-      <div className="main-button" onClick={handleSearchItemsClick}>Search Items</div>
+      <div className="main-button large text" onClick={handleSearchItemsClick}>Search Items</div>
     </div>
   )
 }
