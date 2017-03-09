@@ -7,7 +7,7 @@ const CreateSale = require('./create-sale')
 const SearchItems = require('./search-items')
 const CreateCustomer = require('./create-customer')
 const CustomerPage = require('./customer-page')
-const SalePage = require('./salePage')
+const SalePage = require('./sale-page')
 const SearchCustomers = require('./search-customers')
 
 const View = ({currentView}) => {

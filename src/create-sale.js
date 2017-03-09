@@ -6,12 +6,12 @@ const CreateSale = ({customerMatches, handleSearchCustomersClick, handleSearchCu
   return (
     <div className="ui medium text form centered grid">
       <div className="column fourteen wide">
-        <button id="invoice-customer-button" className="large ui button" onClick={handleSearchCustomersClick}>Select Customer</button>
+        <button className="large ui button" onClick={handleSearchCustomersClick}>Select Customer</button>
         {
           !invoiceInput
           ? null
-          : <div id="invoice-input" className="medium text">
-              <div id="sale-segment" className="ui segment">
+          : <div id="invoice-input">
+              <div id="sale-segment" className="ui medium text segment">
                 <div className="field">
                     <label>Search Customers</label>
                     <div className="ui icon input">
@@ -53,11 +53,11 @@ const CreateSale = ({customerMatches, handleSearchCustomersClick, handleSearchCu
                 </div>
               </div>
             </div>
-        }
+          }
 
       </div>
       <div className="column fourteen wide">
-        <button id="invoice-item-button" className="large ui button" onClick={handleSearchItemsClick}>Select Product</button>
+        <button className="large ui button" onClick={handleSearchItemsClick}>Select Product</button>
         {
           !itemInput
           ? null
@@ -66,7 +66,7 @@ const CreateSale = ({customerMatches, handleSearchCustomersClick, handleSearchCu
               <i className="search icon"></i>
             </div>}
         <div id="invoice-item-scroll">
-          <table id="invoice-item-table" className="ui striped table">
+          <table className="ui striped table">
             <thead>
               <tr>
                 <th className="table-number">#</th>
