@@ -11,7 +11,9 @@
 }
 .large.ui.button {
   font-size: 2rem;
-  /*font-weight: bold;*/
+  font-weight: normal;
+  background-color: white;
+  border-bottom: solid 1px #84eeff;
 }
 .weight-normal {
   font-weight: normal;
@@ -42,6 +44,7 @@ body {
   padding-top: 30px;
   padding-bottom: 30px;
   margin-bottom: 20px;
+  border-bottom: solid 1px #84eeff;
 }
 .home {
   margin-top: 60px;
@@ -53,39 +56,39 @@ body {
   padding: 30px;
   background-color: white;
   margin-bottom: 30px;
+  border-radius: 0.285714rem;
+  border-bottom: solid 1px #84eeff;
 }
 .ui.grid {
   margin: 0;
 }
-#create-item .field>input,
-#search-items .field>label,
-#submit-customer .field>label,
-#submit-customer-button,
-#search-inventory-bar,
-#search-customer-bar {
-  padding: 10px;
-  margin-top: 10px;
-  border: none;
+#search-items {
+  position: relative;
+  height: 100%;
 }
-#submit-customer .field>input {
-  padding: 10px;
-  border: none;
+#create-item label,
+#search-items label,
+#submit-customer label {
+  font-weight: normal;
+  margin-bottom: .625rem;
 }
-/*#search-inventory-bar,
-#search-customer-bar {
-  margin-bottom: 30px;
-}*/
-#submit-customer-button {
-  text-align: center;
-  margin-top: 30px;
+#create-item input,
+#search-items input,
+#submit-customer input {
+  padding: .6em 1em;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: solid 1px #84eeff;
 }
-#submit-sale-button {
-  margin-top: 10px;
-}
-.ui.positive.button {
+#create-item .ui.button,
+#submit-customer .ui.button,
+#submit-sale .ui.button:last-child {
   font-weight: bold;
   font-size: 30px;
   padding: 20px;
+  background-color: #84eeff;
+  text-align: center;
 }
 #table-body tr td:first-child,
 #customer-table-body tr td:first-child,
@@ -101,13 +104,21 @@ body {
   white-space: nowrap;
   padding: 0;
 }
-#invoice-customer-scroll {
+#customer-table-scroll {
+  height: calc(100% - 400px);
+}
+.ui.grid>.ui.segment.column {
+  padding-top: 1em;
+}
+#invoice-customer-scroll,
+#invoice-item-scroll {
   height: calc(100% - 140px);
 }
 .table-number {
   font-weight: bold;
 }
-#invoice-input {
+#customer-invoice-input,
+#item-invoice-input {
   position: fixed;
   top: 0;
   left: 0;
@@ -116,16 +127,17 @@ body {
   z-index: 9999;
   background-color: rgba(0,0,0,0.5);
 }
-#invoice-input label {
+#customer-invoice-input label,
+#item-invoice-input label {
   font-weight: normal;
   margin-bottom: .625rem;
 }
-#sale-segment {
+#customer-invoice-segment,
+#item-invoice-segment {
   position: absolute;
   top: 10rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 80%;
   height: calc(100% - 200px);
   min-height: 400px;
 }

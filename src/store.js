@@ -90,6 +90,8 @@ const itemInput = (state = false, action) => {
       return true
     case 'HOME_PAGE':
       return false
+    case 'ITEM_INPUT_CLOSED':
+      return false
     default:
       return state
   }
@@ -115,7 +117,17 @@ const term = (state = '', action) => {
   }
 }
 
+const customerId = (state = '', action) => {
+  switch (action.type) {
+    case 'CUSTOMER_SELECTED':
+      return action.field
+    default:
+      return state
+  }
+}
+
 const reducer = combineReducers({
+  customerId,
   currentView,
   customerCollection,
   customerForm,

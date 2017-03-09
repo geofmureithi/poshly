@@ -4,21 +4,23 @@ const {createItem} = require('./actions')
 
 const CreateItem = ({handleSubmit, handleChange}) => {
   return (
-    <form id="create-item" className="ui medium text form centered grid add-inventory" onSubmit={handleSubmit}>
-      <div className="field column nine wide">
-        <label>Item SKU</label>
-        <input name="sku" type="text" required onChange={handleChange}/>
-      </div>
-      <div className="field column nine wide">
-        <label>Description</label>
-        <input name="description" type="text" required onChange={handleChange}/>
-      </div>
-      <div className="field column nine wide">
-        <label>Price</label>
-        <input name="price"  type="text" required onChange={handleChange}/>
-      </div>
-      <div className="ui column nine wide centered aligned">
-        <input type="submit" value="Submit Item" className="massive ui positive button"/>
+    <form id="create-item" className="ui medium text form centered grid" onSubmit={handleSubmit}>
+      <div className="column nine wide centered">
+        <div className="field">
+          <label>Item SKU</label>
+          <input name="sku" type="text" required onChange={handleChange}/>
+        </div>
+        <div className="field">
+          <label>Description</label>
+          <input name="description" type="text" required onChange={handleChange}/>
+        </div>
+        <div className="field">
+          <label>Price</label>
+          <input name="price"  type="text" required onChange={handleChange}/>
+        </div>
+        <div className="ui centered aligned grid">
+          <input type="submit" value="Submit Item" className="massive ui button"/>
+        </div>
       </div>
     </form>
   )

@@ -45,8 +45,8 @@ const CreateCustomer = ({handleSubmit, handleChange}) => {
             <input name="email" type="text" onChange={handleChange} required/>
           </div>
         </div>
-        <div id="submit-customer-button">
-          <input type="submit" value="Submit Customer" className="massive ui positive button"/>
+        <div className="ui centered aligned grid">
+          <input type="submit" value="Submit Customer" className="massive ui button"/>
         </div>
       </div>
     </form>
