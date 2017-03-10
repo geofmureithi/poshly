@@ -121,6 +121,8 @@ const customerId = (state = '', action) => {
   switch (action.type) {
     case 'CUSTOMER_SELECTED':
       return action.field
+    case 'HOME_PAGE':
+      return '';
     default:
       return state
   }

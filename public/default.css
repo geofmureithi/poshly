@@ -68,14 +68,17 @@ body {
 }
 #create-item label,
 #search-items label,
-#submit-customer label {
+#submit-customer label,
+#customer-invoice-input label,
+#item-invoice-input label {
   font-weight: normal;
-  margin-bottom: .625rem;
+  margin-bottom: .8rem;
 }
 #create-item input,
 #search-items input,
-#submit-customer input {
-  padding: .6em 1em;
+#submit-customer input,
+#submit-sale input {
+  padding: .5em 1em;
   border-top: none;
   border-left: none;
   border-right: none;
@@ -98,21 +101,26 @@ body {
 #table-scroll,
 #customer-table-scroll,
 #invoice-customer-scroll,
-#invoice-item-scroll {
+#invoice-item-scroll,
+#sale-table-scroll {
   overflow-x: auto;
   overflow-y: auto;
   white-space: nowrap;
   padding: 0;
 }
+#sale-table-scroll {
+  margin-top: 1em;
+}
+#table-scroll,
 #customer-table-scroll {
-  height: calc(100% - 400px);
+  height: 65vh;
 }
 .ui.grid>.ui.segment.column {
   padding-top: 1em;
 }
 #invoice-customer-scroll,
 #invoice-item-scroll {
-  height: calc(100% - 140px);
+  height: calc(100% - 120px);
 }
 .table-number {
   font-weight: bold;
@@ -127,11 +135,6 @@ body {
   z-index: 9999;
   background-color: rgba(0,0,0,0.5);
 }
-#customer-invoice-input label,
-#item-invoice-input label {
-  font-weight: normal;
-  margin-bottom: .625rem;
-}
 #customer-invoice-segment,
 #item-invoice-segment {
   position: absolute;
@@ -140,4 +143,5 @@ body {
   transform: translateX(-50%);
   height: calc(100% - 200px);
   min-height: 400px;
+  background-color: #f2f4f7;
 }

@@ -19,32 +19,39 @@ const CreateSale = ({
     <div id="submit-sale" className="ui medium text form centered grid">
       <div className="column thirteen wide">
         <button className="large ui button" onClick={handleSearchCustomersClick}>Select Customer</button>
-        <table className="ui striped table">
-          <thead>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Street Address</th>
-              <th>City</th>
-              <th>State</th>
-              <th>Zipcode</th>
-              <th>Phone</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td id={customerSelected.id}>{customerSelected.firstName}</td>
-              <td id={customerSelected.id}>{customerSelected.lastName}</td>
-              <td id={customerSelected.id}>{customerSelected.streetAddress}</td>
-              <td id={customerSelected.id}>{customerSelected.city}</td>
-              <td id={customerSelected.id}>{customerSelected.state}</td>
-              <td id={customerSelected.id}>{customerSelected.zipcode}</td>
-              <td id={customerSelected.id}>{customerSelected.phone}</td>
-              <td id={customerSelected.id}>{customerSelected.email}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div id="sale-table-scroll">
+          <table className="ui striped table">
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Street Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zipcode</th>
+                <th>Phone</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                customerSelected.map((customer, index) => {
+                  return(
+                  <tr key={index}>
+                    <td id={customer.id}>{customer.firstName}</td>
+                    <td id={customer.id}>{customer.lastName}</td>
+                    <td id={customer.id}>{customer.streetAddress}</td>
+                    <td id={customer.id}>{customer.city}</td>
+                    <td id={customer.id}>{customer.state}</td>
+                    <td id={customer.id}>{customer.zipcode}</td>
+                    <td id={customer.id}>{customer.phone}</td>
+                    <td id={customer.id}>{customer.email}</td>
+                  </tr>
+                )})
+              }
+            </tbody>
+          </table>
+        </div>
         {
           !invoiceInput
           ? null
@@ -125,32 +132,32 @@ const CreateSale = ({
                     <i className="search icon"></i>
                   </div>
                 </div>
-              <div id="invoice-item-scroll">
-                <table className="ui striped table">
-                  <thead>
-                    <tr>
-                      <th className="table-number">#</th>
-                      <th>SKU</th>
-                      <th>Description</th>
-                      <th>Price</th>
-                    </tr>
-                  </thead>
-                  <tbody id="invoice-item-table-body">
-                    {itemMatches.map((item, index) => {
-                      return (
-                        <tr key={index} onClick={handleSelectItemClick}>
-                          <td>{index + 1}</td>
-                          <td>{item.sku}</td>
-                          <td>{item.description}</td>
-                          <td>{item.price}</td>
-                        </tr>
-                      )
-                    })}
-                  </tbody>
-                </table>
+                <div id="invoice-item-scroll">
+                  <table className="ui striped table">
+                    <thead>
+                      <tr>
+                        <th className="table-number">#</th>
+                        <th>SKU</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                      </tr>
+                    </thead>
+                    <tbody id="invoice-item-table-body">
+                      {itemMatches.map((item, index) => {
+                        return (
+                          <tr key={index} onClick={handleSelectItemClick}>
+                            <td>{index + 1}</td>
+                            <td>{item.sku}</td>
+                            <td>{item.description}</td>
+                            <td>{item.price}</td>
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-          </div>
         }
       </div>
       <div className="ui column nine wide centered aligned">
@@ -174,7 +181,9 @@ const mapStateToProps = ({
     itemInput,
     customerSelected: customerCollection.filter(customer => {
       return (
-        customer.id.indexOf(customerId) > -1
+        customerId == false
+        ? null
+        : customer.id.includes(customerId)
       )
     }),
     customerMatches: customerCollection.filter(customer => {
@@ -213,7 +222,6 @@ const mapDispatchToProps = (dispatch) => {
     handleSearchItemsClick: () => dispatch(searchItems),
 
     handleSelectCustomerClick: event => {
-      const value = event.target.value
       const field = event.target.getAttribute('id')
       dispatch({type: 'CUSTOMER_SELECTED', field})
       dispatch({type: 'INPUT_CLOSED'})

@@ -7,11 +7,11 @@ const SearchItems = ({matches, handleChange}) => {
       <div className="field column nine wide">
         <label>Search Inventory</label>
         <div className="ui icon input">
-          <input id="search-inventory-bar" className="prompt" type="text" placeholder="enter description or SKU" onChange={handleChange}/>
+          <input className="prompt" type="text" placeholder="enter description or SKU" onChange={handleChange}/>
           <i className="search icon"></i>
         </div>
       </div>
-      <div id="table-scroll" className="column fourteen wide">
+      <div id="table-scroll" className="column thirteen wide">
         <table className="ui striped table">
           <thead>
             <tr>

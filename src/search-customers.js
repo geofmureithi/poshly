@@ -11,7 +11,7 @@ const SearchCustomers = ({matches, handleChange}) => {
           <i className="search icon"></i>
         </div>
       </div>
-      <div id="customer-table-scroll" className="column fourteen wide">
+      <div id="customer-table-scroll" className="column thirteen wide">
         <table className="ui striped table">
           <thead>
             <tr>
