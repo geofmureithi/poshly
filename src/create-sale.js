@@ -109,10 +109,12 @@ const CreateSale = ({
               <th>SKU</th>
               <th>Description</th>
               <th>Price</th>
+              <th>Quantity</th>
             </tr>
           </thead>
           <tbody>
             <tr>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -140,6 +142,7 @@ const CreateSale = ({
                         <th>SKU</th>
                         <th>Description</th>
                         <th>Price</th>
+                        <th>Quantity</th>
                       </tr>
                     </thead>
                     <tbody id="invoice-item-table-body">
@@ -150,6 +153,7 @@ const CreateSale = ({
                             <td>{item.sku}</td>
                             <td>{item.description}</td>
                             <td>{item.price}</td>
+                            <td>1</td>
                           </tr>
                         )
                       })}
