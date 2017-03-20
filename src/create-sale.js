@@ -13,7 +13,8 @@ const CreateSale = ({
   handleSelectItemClick,
   invoiceInput,
   itemInput,
-  itemMatches
+  itemMatches,
+  itemSelected
 }) => {
   return (
     <div id="submit-sale" className="ui medium text form centered grid">
@@ -113,13 +114,18 @@ const CreateSale = ({
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+            {
+              itemSelected.map((item, index) => {
+                return(
+                <tr key={index}>
+                  <td id={item.id}>{index + 1}</td>
+                  <td id={item.id}>{item.sku}</td>
+                  <td id={item.id}>{item.description}</td>
+                  <td id={item.id}>{item.price}</td>
+                  <td id={item.id}></td>
+                </tr>
+              )})
+            }
           </tbody>
         </table>
         {
@@ -149,11 +155,11 @@ const CreateSale = ({
                       {itemMatches.map((item, index) => {
                         return (
                           <tr key={index} onClick={handleSelectItemClick}>
-                            <td>{index + 1}</td>
-                            <td>{item.sku}</td>
-                            <td>{item.description}</td>
-                            <td>{item.price}</td>
-                            <td>1</td>
+                            <td id={item.id}>{index + 1}</td>
+                            <td id={item.id}>{item.sku}</td>
+                            <td id={item.id}>{item.description}</td>
+                            <td id={item.id}>{item.price}</td>
+                            <td id={item.id}>1</td>
                           </tr>
                         )
                       })}
@@ -176,6 +182,7 @@ const mapStateToProps = ({
   customerId,
   inventoryItems,
   invoiceInput,
+  itemId,
   itemInput,
   itemTerm,
   term
@@ -185,7 +192,7 @@ const mapStateToProps = ({
     itemInput,
     customerSelected: customerCollection.filter(customer => {
       return (
-        customerId == false
+        !customerId
         ? null
         : customer.id.includes(customerId)
       )
@@ -207,7 +214,22 @@ const mapStateToProps = ({
         item.description.toLowerCase().indexOf(itemTerm.toLowerCase()) > -1 ||
         item.sku.indexOf(itemTerm) > -1
       )
-    })
+    }),
+    itemSelected: () => {
+      var result = []
+      function combine(a,b) {
+        for (var i = 0; i < a.length; i++) {
+          for (var j = 0; j < b.length; j++) {
+            if (a.id[i] == b[j]) {
+              return a[i]
+            }
+          }
+        }
+      }
+      combine(inventoryItems, itemId)
+      return result
+    }
+
   }
 }
 
@@ -232,10 +254,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({type: 'TERM_CLEARED'})
     },
     handleSelectItemClick: event => {
-      const id = event.target.getAttribute('id')
-      dispatch({type: 'ITEM_SELECTED', id})
+      const field = event.target.getAttribute('id')
+      dispatch({type: 'ITEM_SELECTED', field})
       dispatch({type: 'ITEM_INPUT_CLOSED'})
-      dispatch({type: 'TERM_CLEARED'})
+      dispatch({type: 'ITEM_TERM_CLEARED'})
     }
   }
 }

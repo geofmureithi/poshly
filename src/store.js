@@ -36,11 +36,35 @@ const customerForm = (state = {}, action) => {
   }
 }
 
+const customerId = (state = '', action) => {
+  switch (action.type) {
+    case 'CUSTOMER_SELECTED':
+      return action.field
+    case 'HOME_PAGE':
+      return ''
+    default:
+      return state
+  }
+}
+
+const itemId = (state = [], action) => {
+  switch (action.type) {
+    case 'ITEM_SELECTED':
+      return state.concat(action.field)
+    case 'HOME_PAGE':
+      return []
+    default:
+      return state
+  }
+}
+
 const inventoryItems = (state = [], action) => {
   switch (action.type) {
     case 'ITEMS_LOADED':
       return state.concat(action.items)
     case 'HOME_PAGE':
+      return []
+    case 'ITEMS_REFRESHED':
       return []
     default:
       return state
@@ -101,6 +125,8 @@ const itemTerm = (state = '', action) => {
   switch (action.type) {
     case 'ITEM_TERM_UPDATED':
       return action.value
+    case 'ITEM_TERM_CLEARED':
+      return ''
     default:
       return state
   }
@@ -117,17 +143,6 @@ const term = (state = '', action) => {
   }
 }
 
-const customerId = (state = '', action) => {
-  switch (action.type) {
-    case 'CUSTOMER_SELECTED':
-      return action.field
-    case 'HOME_PAGE':
-      return '';
-    default:
-      return state
-  }
-}
-
 const reducer = combineReducers({
   customerId,
   currentView,
@@ -136,6 +151,7 @@ const reducer = combineReducers({
   inventoryItems,
   invoiceInput,
   itemForm,
+  itemId,
   itemInput,
   itemTerm,
   term

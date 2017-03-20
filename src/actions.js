@@ -89,6 +89,8 @@ const searchItems = (dispatch) => {
   fetch('/inventory-items')
     .then((response) => response.json())
     .then((items) => {
+      dispatch({type: 'ITEM_TERM_CLEARED'})
+      dispatch({type: 'ITEMS_REFRESHED'})
       dispatch(itemsLoaded(items))
       dispatch({type: 'ITEM_INPUT_LOADED'})
     })
